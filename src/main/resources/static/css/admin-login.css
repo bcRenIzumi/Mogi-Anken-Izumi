@@ -48,7 +48,7 @@ label {
     white-space: nowrap;
 }
 
-input[type="text"] {
+.inputBox {
     width: 600px;
     padding: 20px;
     border: 2px solid black;
