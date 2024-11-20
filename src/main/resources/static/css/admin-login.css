@@ -1,0 +1,88 @@
+/* 全体のスタイル */
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    /* 縦に並べる */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* フォームのスタイル */
+.container {
+    display: flex;
+    flex-direction: column;
+    /* 縦に並べる */
+    align-items: center;
+    /* 中央揃え */
+    width: 70%;
+    max-width: 600px;
+}
+
+/* フォームのスタイル */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 中央揃え */
+    width: 100%;
+}
+
+/* 各入力ボックスのスタイル */
+.inputGroup {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin: 40px 0;
+}
+
+label {
+    margin-right: 60px;
+    font-size: 30px;
+    white-space: nowrap;
+}
+
+input[type="text"] {
+    width: 600px;
+    padding: 20px;
+    border: 2px solid black;
+    font-size: 24px;
+    box-sizing: border-box;
+}
+
+/* ボタンのスタイル */
+input[type="submit"] {
+    background-color: white;
+    color: black;
+    padding: 20px 40px;
+    border: 2px solid black;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    /* 幅を100%に設定 */
+    max-width: 600px;
+    /* 最大幅を600pxに設定 */
+    margin-top: 20px;
+    text-align: center;
+    /* テキストを中央揃え */
+}
+
+/* ボタンにホバー効果を追加 */
+input[type="submit"]:hover {
+    background-color: #f0f0f0;
+}
+
+/* エラーメッセージ */
+#errorMessage {
+    color: red;
+    margin-top: 40px;
+    font-size: 30px;
+    visibility: hidden;
+}
