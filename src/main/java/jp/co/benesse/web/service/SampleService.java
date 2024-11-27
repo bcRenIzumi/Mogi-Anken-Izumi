@@ -31,10 +31,6 @@ public class SampleService {
     @Autowired
     private SampleRepository sampleRepository;
 
-    /** テスト */
-    @Autowired
-    private MstAdminRepository mstAdminRepository;
-
     /**
      * オプト取得
      * 

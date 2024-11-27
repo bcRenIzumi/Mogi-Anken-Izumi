@@ -19,6 +19,9 @@ public class UrlConstants {
     private UrlConstants() {
     }
 
+    /** リダイレクト */
+    public static final String REDIRECT = "redirect:";
+
     /** サンプル画面 */
     public static final String VIEW_SAMPLE = "/sample";
 
@@ -30,4 +33,7 @@ public class UrlConstants {
 
     /** 管理者メニュー画面 */
     public static final String ADMIN_MENU = "/admin-menu";
+
+    /** ログアウト */
+    public static final String LOGOUT = "/logout";
 }

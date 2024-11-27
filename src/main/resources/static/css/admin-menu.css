@@ -15,7 +15,6 @@ body {
     align-items: center;
     justify-content: space-between;
     height: 20vh;
-    /* 画面の縦幅の1/5 */
     padding: 0 20px;
     font-weight: bold;
 }
@@ -24,7 +23,6 @@ body {
     display: flex;
     flex-direction: row;
     margin-left: 5%;
-    /* dividerの左端に合わせるためのマージン */
 }
 
 .user-id,
@@ -32,11 +30,8 @@ body {
     margin-right: 20px;
     font-size: 30px;
     line-height: 1.5;
-    /* 行の高さを設定 */
     display: flex;
-    /* フレックスボックスを使用 */
     align-items: center;
-    /* 垂直方向に中央揃え */
 }
 
 .logout-button {
@@ -54,35 +49,27 @@ body {
 
 .body {
     height: 80vh;
-    /* 画面の縦幅の4/5 */
     display: flex;
     flex-direction: column;
 }
 
 .divider {
     height: 5px;
-    /* ボディとヘッダーの仕切り */
     background-color: black;
     width: 90%;
-    /* 画面の横幅の9/10 */
     margin: 0 auto;
-    /* 中央に配置 */
 }
 
 .button-container {
     display: flex;
     justify-content: space-around;
-    /* ボタンを左右対称に配置 */
     align-items: center;
     height: 100%;
-    /* ボディの高さを占める */
 }
 
 .action-button {
     width: 40%;
-    /* ボタンの横幅 */
     height: 66%;
-    /* ボタンの縦幅 */
     background-color: transparent;
     border: 6px solid black;
     font-weight: bold;

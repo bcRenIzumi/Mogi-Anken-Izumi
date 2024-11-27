@@ -123,6 +123,6 @@ public class AdminLoginController {
         session.setAttribute("userId", adminId);
         session.setAttribute("userName", mstAdminEntityList.get(0).getAdminName());
 
-        return "redirect:/admin-menu";
+        return UrlConstants.REDIRECT + UrlConstants.ADMIN_MENU;
     }
 }
