@@ -27,4 +27,7 @@ public class UrlConstants {
 
     /** 管理者ログイン画面 */
     public static final String ADMIN_LOGIN = "/login";
+
+    /** 管理者メニュー画面 */
+    public static final String ADMIN_MENU = "/admin-menu";
 }

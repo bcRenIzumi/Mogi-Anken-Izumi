@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import jp.co.benesse.web.entity.SampleEntity;
 import jp.co.benesse.web.exception.WebParamException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
+import jp.co.benesse.web.repository.MstAdminRepository;
 import jp.co.benesse.web.repository.SampleRepository;
 import jp.co.benesse.web.util.MessageUtil;
 
@@ -30,6 +31,10 @@ public class SampleService {
     @Autowired
     private SampleRepository sampleRepository;
 
+    /** テスト */
+    @Autowired
+    private MstAdminRepository mstAdminRepository;
+
     /**
      * オプト取得
      * 
@@ -50,7 +55,7 @@ public class SampleService {
     /**
      * オプト変更
      * 
-     * @param id 会員ID
+     * @param id  会員ID
      * @param opt オプト
      * @throws WebUnexpectedException
      */

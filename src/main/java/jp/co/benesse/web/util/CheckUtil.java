@@ -24,16 +24,16 @@ public class CheckUtil {
     }
 
     /**
-     * 正規表現チェック(nullはtrue返却)
+     * 正規表現チェック(nullはfalse返却)
      * 
      * @param target 対象文字列
-     * @param regex 正規表現
+     * @param regex  正規表現
      * @return チェック結果
      */
     public static boolean isRegex(String target, String regex) {
-        // targetがnullの場合はtrueを返却する
+        // targetがnullの場合はfalseを返却する
         if (Objects.isNull(target)) {
-            return true;
+            return false;
         }
         if (target.matches(regex)) {
             return true;
@@ -44,7 +44,7 @@ public class CheckUtil {
     /**
      * 日付チェック(nullはtrue返却)
      * 
-     * @param date 日付
+     * @param date   日付
      * @param format フォーマット(【年月日】か【年月日時分秒】に対応)
      * @return チェック結果
      */
@@ -62,5 +62,4 @@ public class CheckUtil {
         }
         return true;
     }
-
 }

@@ -25,16 +25,16 @@ import jp.co.benesse.web.util.StringUtil;
 
 /**
  * <pre>
- * 管理者ログイン画面のコントローラークラス
+ * ログアウト用のコントローラークラス
  *
- * 作成日：2024/11/19
+ * 作成日：2024/11/27
  * </pre>
  *
  * @author ren_izumi
  * @version 1.0
  */
 @Controller
-public class AdminLoginController {
+public class LogoutController {
 
     /** 管理者情報のID及びパスワードの文字数制限 */
     @Value("${spring.data.admin.limit}")

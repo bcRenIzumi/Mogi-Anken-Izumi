@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>メニュー画面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/admin-menu.css}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/common/constants.js}"></script>
+    <script type="text/javascript" th:src="@{/js/admin-menu.js}"></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="user-info">
+            <span class="user-id">[[${dto.userId}]]</span>
+            <span class="user-name">[[${dto.userName}]]</span>
+        </div>
+        <button class="logout-button" onclick="location.href='/logout'">ログアウト</button>
+    </div>
+    <div class="body">
+        <div class="divider"></div>
+        <div class="button-container">
+            <button class="action-button">Web予約確認</button>
+            <button class="action-button">返却確認</button>
+        </div>
+    </div>
+</body>
+
+</html>

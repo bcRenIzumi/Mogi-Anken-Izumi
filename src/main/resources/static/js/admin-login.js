@@ -3,8 +3,8 @@ $(function () {
 
         event.preventDefault();
 
-        const adminId = $('#idBox').val();
-        const password = $('#passwordBox').val();
+        const adminId = $('#idBox').val() ? $('#idBox').val() : "";
+        const password = $('#passwordBox').val() ? $('#passwordBox').val() : "";
         const regex = /^[a-zA-Z0-9]+$/;
 
         if (adminId === "" || password === "") {
@@ -24,5 +24,7 @@ $(function () {
             $('#errorMessage').html(ILLEGAL_CHARACTER_ERROR_MESSAGE);
             return;
         }
+
+        this.submit();
     })
 });
