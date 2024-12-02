@@ -17,14 +17,12 @@
             <div id="textBox">
                 <div class="inputGroup">
                     <label for="idBox">管理者ID</label>
-                    <!-- <input class="inputBox" id="idBox" type="text" th:field="*{adminId}" maxlength="16"> -->
-                    <input class="inputBox" id="idBox" type="text" th:field="*{adminId}">
+                    <input class="inputBox" id="idBox" type="text" name="adminId" maxlength="16">
                 </div>
 
                 <div class="inputGroup">
                     <label for="passwordBox">パスワード</label>
-                    <!-- <input class="inputBox" id="passwordBox" type="password" th:field="*{password}" maxlength="16"> -->
-                    <input class="inputBox" id="passwordBox" type="password" th:field="*{password}">
+                    <input class="inputBox" id="passwordBox" type="password" name="password" maxlength="16">
                 </div>
             </div>
             <input id="loginBtn" type="submit" value="ログイン">
