@@ -75,6 +75,6 @@ input[type="submit"]:hover {
 /* エラーメッセージ */
 #errorMessage {
     color: red;
-    margin-top: 40px;
+    margin-top: 10px;
     font-size: 30px;
 }
