@@ -1,19 +1,18 @@
 package jp.co.benesse.web.service;
 
-import java.time.LocalDateTime;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import jp.co.benesse.web.entity.MstAdminEntity;
-import jp.co.benesse.web.entity.SampleEntity;
+import jp.co.benesse.web.exception.NoSuchRecordException;
 import jp.co.benesse.web.exception.WebParamException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
 import jp.co.benesse.web.repository.MstAdminRepository;
-import jp.co.benesse.web.repository.SampleRepository;
 import jp.co.benesse.web.util.MessageUtil;
+import jp.co.benesse.web.util.StringUtil;
 
 /**
  * <pre>
@@ -38,12 +37,31 @@ public class MstAdminService {
      * @param adminId 管理者情報ID
      * @return オプト
      * @throws WebUnexpectedException
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchRecordException
      * @throws WebParamException
      */
-    public List<MstAdminEntity> getAdminList(String adminId, String hashedPassword)
-            throws WebUnexpectedException, WebParamException {
+    public List<MstAdminEntity> getAdminList(String adminId, String password)
+            throws WebUnexpectedException, NoSuchAlgorithmException, NoSuchRecordException {
 
+        String hashedPassword = hashPassword(password);
         List<MstAdminEntity> result = mstAdminRepository.selectByIdAndPass(adminId, hashedPassword);
+        if (CollectionUtils.isEmpty(result)) {
+            throw new NoSuchRecordException(MessageUtil.getMessage("db.select.error.message", "管理者情報"));
+        }
         return result;
+    }
+
+    /**
+     * パスワードをハッシュ化する
+     * 
+     * @param password ハッシュ化前のパスワード
+     * @return ハッシュ化されたパスワード
+     * @throws NoSuchAlgorithmException
+     */
+    private static String hashPassword(String password) throws NoSuchAlgorithmException {
+
+        String hashedPassword = StringUtil.hashString(password);
+        return hashedPassword;
     }
 }
