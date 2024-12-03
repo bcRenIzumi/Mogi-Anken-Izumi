@@ -11,14 +11,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.benesse.web.annotation.AppDescription;
+import jp.co.benesse.web.constants.ScreenConstants;
 import jp.co.benesse.web.constants.UrlConstants;
 import jp.co.benesse.web.entity.MstAdminEntity;
-import jp.co.benesse.web.exception.NoSuchRecordException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
 import jp.co.benesse.web.form.AdminLoginForm;
 import jp.co.benesse.web.service.MstAdminService;
@@ -35,11 +34,6 @@ import jp.co.benesse.web.service.MstAdminService;
  */
 @Controller
 public class AdminLoginController {
-
-    @ModelAttribute
-    public AdminLoginForm setUpAdminLoginForm() {
-        return new AdminLoginForm();
-    }
 
     /** 管理者情報のID及びパスワードの文字数制限 */
     @Value("${spring.data.admin.limit}")
@@ -61,12 +55,9 @@ public class AdminLoginController {
      */
     @GetMapping(UrlConstants.ADMIN_LOGIN)
     @AppDescription(id = "ADMIN_LOGIN", name = "管理者ログイン画面表示")
-    public String showAdminLogin(Model model) {
+    public String showAdminLogin(AdminLoginForm adminLoginForm, Model model) {
 
-        AdminLoginForm adminLoginForm = new AdminLoginForm();
-        model.addAttribute("adminLoginForm", adminLoginForm);
-
-        return "admin-login";
+        return ScreenConstants.ADMIN_LOGIN;
     }
 
     /**
@@ -84,26 +75,29 @@ public class AdminLoginController {
     public String executeAdminLogin(@Validated AdminLoginForm adminLoginForm, BindingResult bindingResult, Model model)
             throws WebUnexpectedException, NoSuchAlgorithmException {
 
-        String adminId = adminLoginForm.getAdminId();
-        String password = adminLoginForm.getPassword();
-
         if (bindingResult.hasErrors()) {
+            // エラーを追加
             rejectVaidationErrors(bindingResult);
-            return "admin-login";
+            model.addAttribute("adminLoginForm", adminLoginForm);
+            return ScreenConstants.ADMIN_LOGIN;
         }
 
-        // 管理者IDとハッシュ化パスワードの組に一致するレコードを取得
         try {
-            List<MstAdminEntity> mstAdminEntityList = mstAdminService.getAdminList(adminId, password);
+            // 管理者IDとハッシュ化パスワードの組に一致するレコードを取得
+            String adminId = adminLoginForm.getAdminId();
+            List<MstAdminEntity> mstAdminEntityList = mstAdminService.getAdminList(adminId,
+                    adminLoginForm.getPassword());
+
             // セッションに利用者IDと利用者名を保存
             session.setAttribute("userId", adminId);
             session.setAttribute("userName", mstAdminEntityList.get(0).getAdminName());
 
+            // メニュー画面にリダイレクト
             return UrlConstants.REDIRECT + UrlConstants.ADMIN_MENU;
-        } catch (NoSuchRecordException e) {
+        } catch (Exception e) {
+            // エラーを追加
             rejectGlobalError(bindingResult, "validationError.wrong.message", "ID、またはパスワード");
-
-            return "admin-login";
+            return ScreenConstants.ADMIN_LOGIN;
         }
     }
 
@@ -114,13 +108,14 @@ public class AdminLoginController {
      */
     private void rejectVaidationErrors(BindingResult bindingResult) {
 
+        // 同種のエラーが追加されたか否か
         boolean isRejectNotBlank = false;
         boolean isRejectSize = false;
         boolean isRejectPattern = false;
 
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
-            String fieldName = fieldError.getField(); // エラーが発生したフィールド名
-            String errorCode = fieldError.getCode(); // エラーコード
+            String fieldName = fieldError.getField();
+            String errorCode = fieldError.getCode();
 
             if (errorCode != null) {
 

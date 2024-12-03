@@ -10,3 +10,6 @@ const ILLEGAL_CHARACTER_ERROR_MESSAGE = 'IDとパスワードに用いられる�
 
 /** 管理者ログイン画面のIDとパスワードの制限文字数 */
 const MAX_LENGTH_ADMIN_ID_AND_PASS = 16;
+
+/** 半角英数を表す正規表現 */
+const regex = /^[a-zA-Z0-9]+$/;

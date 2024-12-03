@@ -5,11 +5,8 @@ $(function () {
         event.preventDefault();
 
         // 入力された管理者IDとパスワードを取得
-        const adminId = $('#idBox').val() ? $('#idBox').val() : "";
-        const password = $('#passwordBox').val() ? $('#passwordBox').val() : "";
-
-        // 半角英数字のみを許可する正規表現
-        const regex = /^[a-zA-Z0-9]+$/;
+        const adminId = $('#idBox').val();
+        const password = $('#passwordBox').val();
 
         // 管理者IDまたはパスワードが空の場合、エラーメッセージを表示
         if (adminId === "" || password === "") {
@@ -19,7 +16,7 @@ $(function () {
         }
 
         // 管理者IDまたはパスワードが16文字を超える場合、エラーメッセージを表示
-        if (adminId.length > 16 || password.length > 16) {
+        if (adminId.length > MAX_LENGTH_ADMIN_ID_AND_PASS || password.length > MAX_LENGTH_ADMIN_ID_AND_PASS) {
             $('#errorMessage').css('visibility', 'unset'); // エラーメッセージを表示
             $('#errorMessage').html(OVER_LENGTH_ERROR_MESSAGE); // エラーメッセージを設定
             return; // 処理を中断
