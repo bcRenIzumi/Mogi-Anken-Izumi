@@ -73,8 +73,8 @@ public class AdminLoginController {
      * 管理者ログイン画面 : ログインボタン押下
      * 
      * @param adminLoginForm 管理者ログインフォーム
-     * @param bindingResult リザルト
-     * @param model モデル
+     * @param bindingResult  リザルト
+     * @param model          モデル
      * @return 遷移先
      * @throws WebUnexpectedException
      * @throws NoSuchAlgorithmException
@@ -101,12 +101,17 @@ public class AdminLoginController {
 
             return UrlConstants.REDIRECT + UrlConstants.ADMIN_MENU;
         } catch (NoSuchRecordException e) {
-            rejectError(bindingResult, "validationError.wrong.message", "ID、またはパスワード");
+            rejectGlobalError(bindingResult, "validationError.wrong.message", "ID、またはパスワード");
 
             return "admin-login";
         }
     }
 
+    /**
+     * バリデーションエラーメッセージ追加
+     * 
+     * @param bindingResult リザルト
+     */
     private void rejectVaidationErrors(BindingResult bindingResult) {
 
         boolean isRejectNotBlank = false;
@@ -123,35 +128,54 @@ public class AdminLoginController {
                 switch (errorCode) {
                     case "NotBlank":
                         // 必須項目が未入力の場合の処理
-                        rejectError(isRejectNotBlank, bindingResult, fieldName, "validationError.required.message",
+                        rejectFieldError(isRejectNotBlank, bindingResult, fieldName, "validationError.required.message",
                                 "ID、パスワード");
                         isRejectNotBlank = true;
                         break;
                     case "Size":
                         // サイズ制限を超えた場合の処理
-                        rejectError(isRejectSize, bindingResult, fieldName, "validationError.maxLength.message",
+                        rejectFieldError(isRejectSize, bindingResult, fieldName, "validationError.maxLength.message",
                                 "ID、パスワード", "16文字");
                         isRejectSize = true;
                         break;
                     case "Pattern":
                         // パターンが一致しない場合の処理
-                        rejectError(isRejectPattern, bindingResult, fieldName, "validationError.alphanumeric.message",
+                        rejectFieldError(isRejectPattern, bindingResult, fieldName,
+                                "validationError.alphanumeric.message",
                                 "ID、パスワード");
                         isRejectPattern = true;
+                        break;
+                    default:
                         break;
                 }
             }
         }
     }
 
-    private void rejectError(boolean isReject, BindingResult bindingResult, String fieldName, String errorCode,
+    /**
+     * フィールドエラーメッセージ追加
+     * 
+     * @param isReject      追加済みか否か
+     * @param bindingResult リザルト
+     * @param fieldName     フィールド名
+     * @param errorCode     エラーコード
+     * @param args          エラーメッセージ引数
+     */
+    private void rejectFieldError(boolean isReject, BindingResult bindingResult, String fieldName, String errorCode,
             String... args) {
         if (!isReject) {
             bindingResult.rejectValue(fieldName, errorCode, args, "");
         }
     }
 
-    private void rejectError(BindingResult bindingResult, String errorCode, String... args) {
+    /**
+     * グローバルエラーメッセージ追加
+     * 
+     * @param bindingResult リザルト
+     * @param errorCode     エラーコード
+     * @param args          エラーメッセージ引数
+     */
+    private void rejectGlobalError(BindingResult bindingResult, String errorCode, String... args) {
         bindingResult.reject(errorCode, args, "");
     }
 }
