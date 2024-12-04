@@ -17,7 +17,6 @@ import jp.co.benesse.web.exception.WebParamException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
 import jp.co.benesse.web.exception.WebViewHandlingException;
 import jp.co.benesse.web.form.SampleForm;
-import jp.co.benesse.web.service.MstAdminService;
 import jp.co.benesse.web.service.SampleService;
 import jp.co.benesse.web.util.MessageUtil;
 
@@ -42,10 +41,6 @@ public class SampleController {
     /** サンプルサービス */
     @Autowired
     private SampleService sampleService;
-
-    /** テストサービス */
-    @Autowired
-    private MstAdminService mstAdminService;
 
     /**
      * サンプル画面 : 画面表示
