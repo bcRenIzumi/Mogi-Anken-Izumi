@@ -23,8 +23,7 @@ public class AdminLoginForm {
     /** 管理者ID */
     @NotBlank
     @Size(max = 16)
-    // @Pattern(regexp = "^[a-zA-Z0-9]*$", message =
-    // "{validationError.alphanumeric.message}")
+    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "{validationError.alphanumeric.message}")
     private String adminId;
 
     /** パスワード */

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,10 +96,6 @@ public class AdminLoginController {
         } catch (NoSuchRecordException e) {
             // エラーを追加
             rejectGlobalError(bindingResult, "user.input.wrong.message", "ID、またはパスワード");
-            return ScreenConstants.ADMIN_LOGIN;
-        } catch (Exception e) {
-            // ログの出力
-            LogUtil.logger.info("管理者情報の取得で予期せぬ例外が発生しました");
             return ScreenConstants.ADMIN_LOGIN;
         }
     }
