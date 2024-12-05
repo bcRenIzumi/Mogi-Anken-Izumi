@@ -40,10 +40,6 @@ public class StringUtil {
      */
     public static String hashString(String text) throws NoSuchAlgorithmException {
 
-        if (text == null) {
-            return "";
-        }
-
         StringBuffer sb = new StringBuffer();
 
         MessageDigest md = MessageDigest.getInstance("SHA256");

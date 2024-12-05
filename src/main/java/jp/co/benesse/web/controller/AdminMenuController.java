@@ -39,8 +39,7 @@ public class AdminMenuController {
      */
     @GetMapping(UrlConstants.ADMIN_MENU)
     @AppDescription(id = "ADMIN_MENU", name = "管理者メニュー画面表示")
-    public String showAdminMenu(Model model)
-            throws WebParamException, WebUnexpectedException {
+    public String showAdminMenu(Model model) {
 
         AdminMenuScreenDto adminMenuScreenDto = new AdminMenuScreenDto();
         adminMenuScreenDto.setUserId((String) session.getAttribute("userId"));

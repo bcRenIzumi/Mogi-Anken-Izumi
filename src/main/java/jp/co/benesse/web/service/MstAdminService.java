@@ -34,12 +34,12 @@ public class MstAdminService {
     /**
      * 管理者情報取得
      * 
-     * @param adminId 管理者情報ID
-     * @return オプト
+     * @param adminId  管理者情報ID
+     * @param password パスワード
+     * @return 管理者情報リスト
      * @throws WebUnexpectedException
      * @throws NoSuchAlgorithmException
      * @throws NoSuchRecordException
-     * @throws WebParamException
      */
     public List<MstAdminEntity> getAdminList(String adminId, String password)
             throws WebUnexpectedException, NoSuchAlgorithmException, NoSuchRecordException {
@@ -61,7 +61,6 @@ public class MstAdminService {
      */
     private static String hashPassword(String password) throws NoSuchAlgorithmException {
 
-        String hashedPassword = StringUtil.hashString(password);
-        return hashedPassword;
+        return StringUtil.hashString(password);
     }
 }

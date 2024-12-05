@@ -21,14 +21,15 @@ import lombok.Setter;
 public class AdminLoginForm {
 
     /** 管理者ID */
-    @NotBlank(message = "")
-    @Size(max = 16, message = "")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]*$", message = "")
+    @NotBlank
+    @Size(max = 16)
+    // @Pattern(regexp = "^[a-zA-Z0-9]*$", message =
+    // "{validationError.alphanumeric.message}")
     private String adminId;
 
     /** パスワード */
-    @NotBlank(message = "")
-    @Size(max = 16, message = "")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]*$", message = "")
+    @NotBlank
+    @Size(max = 16)
+    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "{validationError.alphanumeric.message}")
     private String password;
 }
