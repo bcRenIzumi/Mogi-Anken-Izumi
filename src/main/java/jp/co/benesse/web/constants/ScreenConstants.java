@@ -20,4 +20,7 @@ public class ScreenConstants {
 
     /** 管理者ログイン画面 */
     public static final String ADMIN_LOGIN = "admin-login";
+
+    /** メニュー画面 */
+    public static final String ADMIN_MENU = "admin-menu";
 }

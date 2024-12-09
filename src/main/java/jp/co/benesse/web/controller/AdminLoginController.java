@@ -72,7 +72,7 @@ public class AdminLoginController {
      * @throws WebUnexpectedException
      * @throws NoSuchAlgorithmException
      */
-    @PostMapping(UrlConstants.ADMIN_LOGIN)
+    @PostMapping(path = { UrlConstants.INDEX, UrlConstants.ADMIN_LOGIN })
     @AppDescription(id = "ADMIN_LOGIN", name = "ログイン")
     public String executeAdminLogin(@Validated AdminLoginForm adminLoginForm, BindingResult bindingResult, Model model)
             throws WebUnexpectedException, NoSuchAlgorithmException {
