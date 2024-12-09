@@ -14,7 +14,7 @@ import jp.co.benesse.web.exception.WebUnexpectedException;
 
 /**
  * <pre>
- * 管理者メニュー画面のコントローラークラス
+ * メニュー画面のコントローラークラス
  *
  * 作成日：2024/11/26
  * </pre>
@@ -34,11 +34,9 @@ public class AdminMenuController {
      * 
      * @param model モデル
      * @return 遷移先
-     * @throws WebParamException
-     * @throws WebUnexpectedException
      */
     @GetMapping(UrlConstants.ADMIN_MENU)
-    @AppDescription(id = "ADMIN_MENU", name = "管理者メニュー画面表示")
+    @AppDescription(id = "ADMIN_MENU", name = "メニュー画面表示")
     public String showAdminMenu(Model model) {
 
         AdminMenuScreenDto adminMenuScreenDto = new AdminMenuScreenDto();
