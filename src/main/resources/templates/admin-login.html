@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/admin-login.css}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script type="text/javascript" th:src="@{/js/common/constants.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/functions.js}"></script>
     <script type="text/javascript" th:src="@{/js/admin-login.js}"></script>
 </head>
 
-<body>
+<body th:object="${adminLoginForm}">
     <div class="container">
         <form id="loginForm" method="post" th:action="@{/login}">
             <div id="textBox">
@@ -28,7 +30,11 @@
             <input id="loginBtn" type="submit" value="ログイン">
         </form>
     </div>
-    <div id="errorMessage">[[${dto.errorMessage}]]</div>
+    <div id="errorMessage">
+    </div>
+    <div th:if="${#fields.hasErrors('*')}">
+        <div id="errorMessage" th:each="err:${#fields.errors('*')}" th:text="${err}"></div>
+    </div>
 </body>
 
 </html>

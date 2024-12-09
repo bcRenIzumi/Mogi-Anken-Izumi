@@ -1,8 +1,7 @@
 package jp.co.benesse.web.util;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
-import java.util.Objects;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * <pre>
@@ -30,5 +29,26 @@ public class StringUtil {
      */
     public static int length(String str) {
         return (str != null) ? str.length() : 0;
+    }
+
+    /**
+     * 文字列をSHA-256でハッシュ化する
+     * 
+     * @param text ハッシュ化する文字列
+     * @return ハッシュ化された文字列。
+     * @throws NoSuchAlgorithmException
+     */
+    public static String hashString(String text) throws NoSuchAlgorithmException {
+
+        StringBuffer sb = new StringBuffer();
+
+        MessageDigest md = MessageDigest.getInstance("SHA256");
+        byte[] cipherBytes = md.digest(text.getBytes());
+
+        for (int i = 0; i < cipherBytes.length; i++) {
+            sb.append(String.format("%02x", cipherBytes[i] & 0xff));
+        }
+
+        return sb.toString();
     }
 }
