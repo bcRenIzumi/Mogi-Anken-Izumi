@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.benesse.web.annotation.AppDescription;
+import jp.co.benesse.web.constants.ScreenConstants;
 import jp.co.benesse.web.constants.UrlConstants;
 import jp.co.benesse.web.dto.AdminMenuScreenDto;
 
@@ -38,12 +39,16 @@ public class AdminMenuController {
     public String showAdminMenu(Model model) {
 
         AdminMenuScreenDto adminMenuScreenDto = new AdminMenuScreenDto();
-        adminMenuScreenDto.setUserId((String) session.getAttribute("userId"));
-        adminMenuScreenDto.setUserName((String) session.getAttribute("userName"));
+        if (session.getAttribute("userId") == null || session.getAttribute("userName") == null) {
+            return UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN;
+        } else {
+            adminMenuScreenDto.setUserId((String) session.getAttribute("userId"));
+            adminMenuScreenDto.setUserName((String) session.getAttribute("userName"));
+        }
 
         model.addAttribute("dto", adminMenuScreenDto);
 
-        return "admin-menu";
+        return ScreenConstants.ADMIN_MENU;
     }
 
 }

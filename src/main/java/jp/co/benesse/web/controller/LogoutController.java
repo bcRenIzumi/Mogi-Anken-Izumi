@@ -32,7 +32,7 @@ public class LogoutController {
      */
     @GetMapping(UrlConstants.LOGOUT)
     @AppDescription(id = "LOGOUT", name = "ログアウト")
-    public String logout(Model model) {
+    public String logout() {
 
         session.invalidate();
         return UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN;

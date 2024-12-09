@@ -19,6 +19,9 @@ public class UrlConstants {
     private UrlConstants() {
     }
 
+    /** インデックス */
+    public static final String INDEX = "/";
+
     /** リダイレクト */
     public static final String REDIRECT = "redirect:";
 
