@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.benesse.web.annotation.AppDescription;
+import jp.co.benesse.web.constants.CommonConstants;
 import jp.co.benesse.web.constants.ScreenConstants;
 import jp.co.benesse.web.constants.UrlConstants;
 import jp.co.benesse.web.dto.AdminMenuScreenDto;
@@ -38,13 +39,14 @@ public class AdminMenuController {
     @AppDescription(id = "ADMIN_MENU", name = "メニュー画面表示")
     public String showAdminMenu(Model model) {
 
-        AdminMenuScreenDto adminMenuScreenDto = new AdminMenuScreenDto();
-        if (session.getAttribute("userId") == null || session.getAttribute("userName") == null) {
+        if (session.getAttribute(CommonConstants.USER_ID) == null || session.getAttribute(CommonConstants.USER_NAME) == null) {
             return UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN;
-        } else {
-            adminMenuScreenDto.setUserId((String) session.getAttribute("userId"));
-            adminMenuScreenDto.setUserName((String) session.getAttribute("userName"));
         }
+
+        AdminMenuScreenDto adminMenuScreenDto = new AdminMenuScreenDto();
+
+        adminMenuScreenDto.setUserId((String) session.getAttribute(CommonConstants.USER_ID));
+        adminMenuScreenDto.setUserName((String) session.getAttribute(CommonConstants.USER_NAME));
 
         model.addAttribute("dto", adminMenuScreenDto);
 

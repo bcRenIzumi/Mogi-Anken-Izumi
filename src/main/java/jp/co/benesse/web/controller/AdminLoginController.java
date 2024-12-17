@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.benesse.web.annotation.AppDescription;
+import jp.co.benesse.web.constants.CommonConstants;
 import jp.co.benesse.web.constants.ScreenConstants;
 import jp.co.benesse.web.constants.UrlConstants;
 import jp.co.benesse.web.entity.MstAdminEntity;
@@ -21,7 +22,6 @@ import jp.co.benesse.web.exception.NoSuchRecordException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
 import jp.co.benesse.web.form.AdminLoginForm;
 import jp.co.benesse.web.service.MstAdminService;
-import jp.co.benesse.web.util.LogUtil;
 
 /**
  * <pre>
@@ -88,8 +88,8 @@ public class AdminLoginController {
                     adminLoginForm.getPassword());
 
             // セッションに利用者IDと利用者名を保存
-            session.setAttribute("userId", adminId);
-            session.setAttribute("userName", mstAdminEntityList.get(0).getAdminName());
+            session.setAttribute(CommonConstants.USER_ID, adminId);
+            session.setAttribute(CommonConstants.USER_NAME, mstAdminEntityList.get(0).getAdminName());
 
             // メニュー画面にリダイレクト
             return UrlConstants.REDIRECT + UrlConstants.ADMIN_MENU;
