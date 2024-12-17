@@ -52,12 +52,11 @@ public class AdminLoginController {
      * 管理者ログイン画面 : 画面表示
      * 
      * @param adminLoginForm 管理者ログインフォーム
-     * @param model          モデル
      * @return 遷移先
      */
     @GetMapping(UrlConstants.ADMIN_LOGIN)
     @AppDescription(id = "ADMIN_LOGIN", name = "管理者ログイン画面表示")
-    public String showAdminLogin(AdminLoginForm adminLoginForm, Model model) {
+    public String showAdminLogin(AdminLoginForm adminLoginForm) {
 
         return ScreenConstants.ADMIN_LOGIN;
     }
@@ -67,14 +66,13 @@ public class AdminLoginController {
      * 
      * @param adminLoginForm 管理者ログインフォーム
      * @param bindingResult  リザルト
-     * @param model          モデル
      * @return 遷移先
      * @throws WebUnexpectedException
      * @throws NoSuchAlgorithmException
      */
     @PostMapping(path = { UrlConstants.INDEX, UrlConstants.ADMIN_LOGIN })
     @AppDescription(id = "ADMIN_LOGIN", name = "ログイン")
-    public String executeAdminLogin(@Validated AdminLoginForm adminLoginForm, BindingResult bindingResult, Model model)
+    public String executeAdminLogin(@Validated AdminLoginForm adminLoginForm, BindingResult bindingResult)
             throws WebUnexpectedException, NoSuchAlgorithmException {
 
         if (bindingResult.hasErrors()) {
