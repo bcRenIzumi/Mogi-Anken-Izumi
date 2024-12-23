@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.benesse.web.annotation.AppDescription;
+import jp.co.benesse.web.constants.CommonConstants;
 import jp.co.benesse.web.constants.ScreenConstants;
 import jp.co.benesse.web.constants.UrlConstants;
 import jp.co.benesse.web.entity.MstAdminEntity;
@@ -21,7 +22,6 @@ import jp.co.benesse.web.exception.NoSuchRecordException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
 import jp.co.benesse.web.form.AdminLoginForm;
 import jp.co.benesse.web.service.MstAdminService;
-import jp.co.benesse.web.util.LogUtil;
 
 /**
  * <pre>
@@ -52,12 +52,11 @@ public class AdminLoginController {
      * 管理者ログイン画面 : 画面表示
      * 
      * @param adminLoginForm 管理者ログインフォーム
-     * @param model          モデル
      * @return 遷移先
      */
     @GetMapping(UrlConstants.ADMIN_LOGIN)
     @AppDescription(id = "ADMIN_LOGIN", name = "管理者ログイン画面表示")
-    public String showAdminLogin(AdminLoginForm adminLoginForm, Model model) {
+    public String showAdminLogin(AdminLoginForm adminLoginForm) {
 
         return ScreenConstants.ADMIN_LOGIN;
     }
@@ -67,14 +66,13 @@ public class AdminLoginController {
      * 
      * @param adminLoginForm 管理者ログインフォーム
      * @param bindingResult  リザルト
-     * @param model          モデル
      * @return 遷移先
      * @throws WebUnexpectedException
      * @throws NoSuchAlgorithmException
      */
-    @PostMapping(UrlConstants.ADMIN_LOGIN)
+    @PostMapping(path = { UrlConstants.INDEX, UrlConstants.ADMIN_LOGIN })
     @AppDescription(id = "ADMIN_LOGIN", name = "ログイン")
-    public String executeAdminLogin(@Validated AdminLoginForm adminLoginForm, BindingResult bindingResult, Model model)
+    public String executeAdminLogin(@Validated AdminLoginForm adminLoginForm, BindingResult bindingResult)
             throws WebUnexpectedException, NoSuchAlgorithmException {
 
         if (bindingResult.hasErrors()) {
@@ -88,8 +86,8 @@ public class AdminLoginController {
                     adminLoginForm.getPassword());
 
             // セッションに利用者IDと利用者名を保存
-            session.setAttribute("userId", adminId);
-            session.setAttribute("userName", mstAdminEntityList.get(0).getAdminName());
+            session.setAttribute(CommonConstants.USER_ID, adminId);
+            session.setAttribute(CommonConstants.USER_NAME, mstAdminEntityList.get(0).getAdminName());
 
             // メニュー画面にリダイレクト
             return UrlConstants.REDIRECT + UrlConstants.ADMIN_MENU;

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.benesse.web.annotation.AppDescription;
+import jp.co.benesse.web.constants.CommonConstants;
+import jp.co.benesse.web.constants.ScreenConstants;
 import jp.co.benesse.web.constants.UrlConstants;
 import jp.co.benesse.web.dto.AdminMenuScreenDto;
-import jp.co.benesse.web.exception.WebParamException;
-import jp.co.benesse.web.exception.WebUnexpectedException;
 
 /**
  * <pre>
@@ -39,13 +39,18 @@ public class AdminMenuController {
     @AppDescription(id = "ADMIN_MENU", name = "メニュー画面表示")
     public String showAdminMenu(Model model) {
 
+        if (session.getAttribute(CommonConstants.USER_ID) == null || session.getAttribute(CommonConstants.USER_NAME) == null) {
+            return UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN;
+        }
+
         AdminMenuScreenDto adminMenuScreenDto = new AdminMenuScreenDto();
-        adminMenuScreenDto.setUserId((String) session.getAttribute("userId"));
-        adminMenuScreenDto.setUserName((String) session.getAttribute("userName"));
+
+        adminMenuScreenDto.setUserId((String) session.getAttribute(CommonConstants.USER_ID));
+        adminMenuScreenDto.setUserName((String) session.getAttribute(CommonConstants.USER_NAME));
 
         model.addAttribute("dto", adminMenuScreenDto);
 
-        return "admin-menu";
+        return ScreenConstants.ADMIN_MENU;
     }
 
 }
