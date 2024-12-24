@@ -43,4 +43,9 @@ public class CommonConstants {
     /** 日付フォーマット(年月日_日本) */
     public static final String DTF_FORMAT_YMD_JC = "uuuu年M月d日";
 
+    /** セッションID:ユーザーID */
+    public static final String USER_ID = "userId";
+
+    /** セッションID:ユーザー名 */
+    public static final String USER_NAME = "userName";
 }
