@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,6 +74,10 @@ public class AdminLoginController {
     public String executeAdminLogin(@Validated AdminLoginForm adminLoginForm, BindingResult bindingResult)
             throws WebUnexpectedException, NoSuchAlgorithmException {
 
+        if (bindingResult == null) {
+            throw new NullPointerException("バインディングリザルトが空です");
+        }
+
         if (bindingResult.hasErrors()) {
             return ScreenConstants.ADMIN_LOGIN;
         }
@@ -106,6 +109,9 @@ public class AdminLoginController {
      * @param args          エラーメッセージ引数
      */
     private void rejectGlobalError(BindingResult bindingResult, String errorCode, String... args) {
+        if (bindingResult == null) {
+            return;
+        }
         bindingResult.reject(errorCode, args, "");
     }
 }

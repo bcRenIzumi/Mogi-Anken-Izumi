@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-<!-- 
+
   <logger name="org.springframework" level="OFF" />
   <logger name="org.apache" level="OFF" />
   <logger name="jp.co.benesse.web.WebTemplateApplication" level="OFF" />
- -->
+
   <!-- INFOログ以上を出す -->
   <logger name="jp.co.benesse.web" level="DEBUG" />
   <!-- ファイル名 -->

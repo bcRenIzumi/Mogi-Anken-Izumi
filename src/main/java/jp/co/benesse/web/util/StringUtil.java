@@ -3,6 +3,8 @@ package jp.co.benesse.web.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.stereotype.Component;
+
 /**
  * <pre>
  * Stringに関するユーティリティクラス.

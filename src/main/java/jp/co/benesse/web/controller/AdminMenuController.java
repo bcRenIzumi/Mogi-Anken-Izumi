@@ -39,7 +39,8 @@ public class AdminMenuController {
     @AppDescription(id = "ADMIN_MENU", name = "メニュー画面表示")
     public String showAdminMenu(Model model) {
 
-        if (session.getAttribute(CommonConstants.USER_ID) == null || session.getAttribute(CommonConstants.USER_NAME) == null) {
+        if (session.getAttribute(CommonConstants.USER_ID) == null
+                || session.getAttribute(CommonConstants.USER_NAME) == null) {
             return UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN;
         }
 
