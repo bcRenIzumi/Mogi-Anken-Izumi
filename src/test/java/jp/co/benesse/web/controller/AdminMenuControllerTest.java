@@ -33,12 +33,36 @@ public class AdminMenuControllerTest extends BaseTest {
     @Mock
     private Model model;
 
+    /**
+     * ケース1
+     */
+    @Test
+    public void testShowAdminMenuNull() {
+
+        when(session.getAttribute(CommonConstants.USER_ID)).thenReturn("userId");
+        when(session.getAttribute(CommonConstants.USER_NAME)).thenReturn("userName");
+
+        assertThrows(NullPointerException.class, () -> {
+            adminMenuController.showAdminMenu(null);
+        });
+    }
+
+    /**
+     * ケース2
+     * 
+     * @throws Exception
+     */
     @Test
     public void testShowAdminMenuUserNotLoggedIn() throws Exception {
         String result = adminMenuController.showAdminMenu(model);
         assertEquals(UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN, result);
     }
 
+    /**
+     * ケース3
+     * 
+     * @throws Exception
+     */
     @Test
     public void testShowAdminMenuUserNoUserName() throws Exception {
 
@@ -47,6 +71,9 @@ public class AdminMenuControllerTest extends BaseTest {
         assertEquals(UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN, result);
     }
 
+    /**
+     * ケース4
+     */
     @Test
     public void testShowAdminMenuUserLoggedIn() {
 
@@ -60,16 +87,5 @@ public class AdminMenuControllerTest extends BaseTest {
 
         // 遷移先が正しいか確認
         assertEquals(ScreenConstants.ADMIN_MENU, result);
-    }
-
-    @Test
-    public void testShowAdminMenuNull() {
-
-        when(session.getAttribute(CommonConstants.USER_ID)).thenReturn("userId");
-        when(session.getAttribute(CommonConstants.USER_NAME)).thenReturn("userName");
-
-        assertThrows(NullPointerException.class, () -> {
-            adminMenuController.showAdminMenu(null);
-        });
     }
 }

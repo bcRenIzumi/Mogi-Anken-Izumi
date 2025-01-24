@@ -11,6 +11,7 @@ import jp.co.benesse.web.constants.CommonConstants;
 import jp.co.benesse.web.constants.ScreenConstants;
 import jp.co.benesse.web.constants.UrlConstants;
 import jp.co.benesse.web.dto.AdminMenuScreenDto;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <pre>
@@ -39,8 +40,8 @@ public class AdminMenuController {
     @AppDescription(id = "ADMIN_MENU", name = "メニュー画面表示")
     public String showAdminMenu(Model model) {
 
-        if (session.getAttribute(CommonConstants.USER_ID) == null
-                || session.getAttribute(CommonConstants.USER_NAME) == null) {
+        if (StringUtils.isEmpty((String) session.getAttribute(CommonConstants.USER_ID))
+                || StringUtils.isEmpty((String) session.getAttribute(CommonConstants.USER_NAME))) {
             return UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN;
         }
 

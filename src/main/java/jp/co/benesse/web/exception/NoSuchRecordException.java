@@ -20,4 +20,12 @@ public class NoSuchRecordException extends WebBaseException {
     public NoSuchRecordException(String errorMessage) {
         super(errorMessage);
     }
+
+    /**
+     * コンストラクタ
+     */
+    public NoSuchRecordException() {
+        super("");
+    }
+
 }

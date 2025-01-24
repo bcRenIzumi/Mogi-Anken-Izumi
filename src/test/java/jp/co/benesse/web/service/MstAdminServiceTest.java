@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,5 +52,29 @@ public class MstAdminServiceTest extends BaseTest {
         assertThrows(NoSuchRecordException.class, () -> {
             mstAdminService.getAdminList("test", "test");
         });
+    }
+
+    @Test
+    public void hashPasswordTest()
+            throws NoSuchMethodException, NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException,
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+        Method method = MstAdminService.class.getDeclaredMethod("hashPassword", String.class);
+        method.setAccessible(true);
+
+        String result = (String) method.invoke(mstAdminService, "pass");
+        assertEquals(result, "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1");
+    }
+
+    @Test
+    public void hashPasswordNullTest()
+            throws NoSuchMethodException, NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException,
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+        Method method = MstAdminService.class.getDeclaredMethod("hashPassword", String.class);
+        method.setAccessible(true);
+
+        String result = (String) method.invoke(mstAdminService, (Object) null);
+        assertEquals(result, null);
     }
 }
