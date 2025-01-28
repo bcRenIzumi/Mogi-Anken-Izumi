@@ -38,8 +38,15 @@ public class MstAdminServiceTest extends BaseTest {
     @Mock
     private MstAdminRepository mstAdminRepository;
 
+    /**
+     * getAdminList:ケース1
+     * 
+     * @throws NoSuchAlgorithmException
+     * @throws WebUnexpectedException
+     * @throws NoSuchRecordException
+     */
     @Test
-    public void getAdminListTest() throws NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException {
+    public void getAdminListCase1() throws NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException {
 
         List<MstAdminEntity> result = new ArrayList<>();
         MstAdminEntity entity = new MstAdminEntity();
@@ -48,8 +55,15 @@ public class MstAdminServiceTest extends BaseTest {
         assertEquals(result, mstAdminService.getAdminList("test", "test"));
     }
 
+    /**
+     * getAdminList:ケース2
+     * 
+     * @throws NoSuchAlgorithmException
+     * @throws WebUnexpectedException
+     * @throws NoSuchRecordException
+     */
     @Test
-    public void getAdminNoListTest() throws NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException {
+    public void getAdminNoListCase2() throws NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException {
 
         List<MstAdminEntity> result = new ArrayList<>();
         when(mstAdminRepository.selectByIdAndPass(any(), any())).thenReturn(result);
@@ -58,8 +72,15 @@ public class MstAdminServiceTest extends BaseTest {
         });
     }
 
+    /**
+     * getAdminList:ケース3
+     * 
+     * @throws NoSuchAlgorithmException
+     * @throws WebUnexpectedException
+     * @throws NoSuchRecordException
+     */
     @Test
-    public void getAdminListTestThrowWebUnexpectedException()
+    public void getAdminListCase3()
             throws NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException {
 
         doThrow(new WebUnexpectedException("error")).when(mstAdminRepository).selectByIdAndPass(any(), any());
@@ -68,8 +89,15 @@ public class MstAdminServiceTest extends BaseTest {
         });
     }
 
+    /**
+     * getAdminList:ケース4
+     * 
+     * @throws NoSuchAlgorithmException
+     * @throws WebUnexpectedException
+     * @throws NoSuchRecordException
+     */
     @Test
-    public void getAdminListTestThrowNoSuchAlgorithmException()
+    public void getAdminListCase4()
             throws NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException {
 
         List<MstAdminEntity> result = new ArrayList<>();
@@ -84,8 +112,19 @@ public class MstAdminServiceTest extends BaseTest {
         });
     }
 
+    /**
+     * hashPassword:ケース1
+     * 
+     * @throws NoSuchMethodException
+     * @throws NoSuchAlgorithmException
+     * @throws WebUnexpectedException
+     * @throws NoSuchRecordException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     */
     @Test
-    public void hashPasswordTest()
+    public void hashPasswordCase1()
             throws NoSuchMethodException, NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
@@ -96,8 +135,19 @@ public class MstAdminServiceTest extends BaseTest {
         assertEquals(result, "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1");
     }
 
+    /**
+     * hashPassword:ケース2
+     * 
+     * @throws NoSuchMethodException
+     * @throws NoSuchAlgorithmException
+     * @throws WebUnexpectedException
+     * @throws NoSuchRecordException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     */
     @Test
-    public void hashPasswordNullTest()
+    public void hashPasswordCase2()
             throws NoSuchMethodException, NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException,
             IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 

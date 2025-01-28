@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+
+import jp.co.benesse.web.constants.MessageConstants;
 import jp.co.benesse.web.entity.MstAdminEntity;
 import jp.co.benesse.web.exception.NoSuchRecordException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
@@ -46,7 +48,7 @@ public class MstAdminService {
         String hashedPassword = hashPassword(password);
         List<MstAdminEntity> result = mstAdminRepository.selectByIdAndPass(adminId, hashedPassword);
         if (CollectionUtils.isEmpty(result)) {
-            throw new NoSuchRecordException(MessageUtil.getMessage("db.select.error.message", "管理者情報"));
+            throw new NoSuchRecordException(MessageUtil.getMessage(MessageConstants.NO_RECORD, "管理者情報"));
         }
         return result;
     }

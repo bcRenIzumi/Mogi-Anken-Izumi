@@ -49,8 +49,13 @@ public class AdminLoginControllerTest extends BaseTest {
     @Mock
     private BindingResult bindingResult;
 
+    /**
+     * showAdminLogin:ケース1
+     * 
+     * @throws Exception
+     */
     @Test
-    public void showAdminLoginNullTest() throws Exception {
+    public void showAdminLoginCase1() throws Exception {
         AdminLoginForm adminLoginForm = null;
         String expected = ScreenConstants.ADMIN_LOGIN;
         String result = adminLoginController.showAdminLogin(adminLoginForm);
@@ -59,8 +64,13 @@ public class AdminLoginControllerTest extends BaseTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * showAdminLogin:ケース2
+     * 
+     * @throws Exception
+     */
     @Test
-    public void showAdminLoginTest() throws Exception {
+    public void showAdminLoginCase2() throws Exception {
         AdminLoginForm adminLoginForm = new AdminLoginForm();
         adminLoginForm.setAdminId("adminId");
         adminLoginForm.setPassword("password");
@@ -71,34 +81,30 @@ public class AdminLoginControllerTest extends BaseTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * executeAdminLogin:ケース1
+     * 
+     * @throws Exception
+     */
     @Test
-    public void executeAdminLoginNullTest() throws Exception {
+    public void executeAdminLoginCase1() throws Exception {
         AdminLoginForm adminLoginForm = null;
         assertThrows(NullPointerException.class, () -> {
             adminLoginController.executeAdminLogin(adminLoginForm, bindingResult);
         });
     }
 
+    /**
+     * executeAdminLogin:ケース2
+     * 
+     * @throws Exception
+     */
     @Test
-    public void executeAdminLoginTest() throws Exception {
+    public void executeAdminLoginCase2() throws Exception {
         AdminLoginForm adminLoginForm = new AdminLoginForm();
-        adminLoginForm.setAdminId("A001");
-        adminLoginForm.setPassword("pass");
 
         List<MstAdminEntity> mstAdminEntityList = new ArrayList<>();
         MstAdminEntity entity = new MstAdminEntity();
-        entity.setAdminId("A001");
-        entity.setAdminName("test");
-        entity.setPassword("d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1");
-        entity.setRoleCode("01");
-        entity.setLogicDelFlg("0");
-        entity.setCreateBy("admin1");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        LocalDateTime createTime = LocalDateTime.parse("2024-11-21 04:44:58.240", formatter);
-        entity.setCreateTime(createTime);
-        entity.setUpdateBy("admin");
-        LocalDateTime upDateTime = LocalDateTime.parse("2024-11-21 04:44:58.240", formatter);
-        entity.setUpdateTime(upDateTime);
         mstAdminEntityList.add(entity);
 
         when(mstAdminService.getAdminList(any(), any())).thenReturn(mstAdminEntityList);
@@ -110,11 +116,14 @@ public class AdminLoginControllerTest extends BaseTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * executeAdminLogin:ケース3
+     * 
+     * @throws Exception
+     */
     @Test
-    public void executeAdminLoginExceptionTest() throws Exception {
+    public void executeAdminLoginCase3() throws Exception {
         AdminLoginForm adminLoginForm = new AdminLoginForm();
-        adminLoginForm.setAdminId("A001");
-        adminLoginForm.setPassword("pass");
 
         when(mstAdminService.getAdminList(any(), any())).thenThrow(new NoSuchRecordException());
 
@@ -124,38 +133,4 @@ public class AdminLoginControllerTest extends BaseTest {
         // 遷移先が正しいか確認
         assertEquals(expected, result);
     }
-
-    // @Test
-    // public void testShowAdminMenuUserNoUserName() throws Exception {
-
-    // when(session.getAttribute(CommonConstants.USER_ID)).thenReturn("userId");
-    // String result = adminMenuController.showAdminMenu(model);
-    // assertEquals(UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN, result);
-    // }
-
-    // @Test
-    // public void testShowAdminMenuUserLoggedIn() {
-
-    // when(session.getAttribute(CommonConstants.USER_ID)).thenReturn("userId");
-    // when(session.getAttribute(CommonConstants.USER_NAME)).thenReturn("userName");
-
-    // String result = adminMenuController.showAdminMenu(model);
-
-    // // モデルにDTOが追加されているか確認
-    // verify(model).addAttribute(eq("dto"), any(AdminMenuScreenDto.class));
-
-    // // 遷移先が正しいか確認
-    // assertEquals(ScreenConstants.ADMIN_MENU, result);
-    // }
-
-    // @Test
-    // public void testShowAdminMenuNull() {
-
-    // when(session.getAttribute(CommonConstants.USER_ID)).thenReturn("userId");
-    // when(session.getAttribute(CommonConstants.USER_NAME)).thenReturn("userName");
-
-    // assertThrows(NullPointerException.class, () -> {
-    // adminMenuController.showAdminMenu(null);
-    // });
-    // }
 }

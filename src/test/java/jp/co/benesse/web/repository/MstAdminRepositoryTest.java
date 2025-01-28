@@ -25,15 +25,36 @@ public class MstAdminRepositoryTest extends BaseTest {
     @Autowired
     private MstAdminRepository dao;
 
+    /**
+     * selectByIdAndPass:ケース1
+     * 
+     * @throws WebUnexpectedException
+     */
     @Test
     @DatabaseSetup(value = "classpath:dao/MstAdminRepository/")
-    public void selectByIdAndPassTest() throws WebUnexpectedException {
+    public void selectByIdAndPassCase1() throws WebUnexpectedException {
+
+        // テスト対象メソッド実行
+        List<MstAdminEntity> result = dao
+                .selectByIdAndPass(null, null);
+
+        assertEquals(result.size(), 0);
+    }
+
+    /**
+     * selectByIdAndPass:ケース2
+     * 
+     * @throws WebUnexpectedException
+     */
+    @Test
+    @DatabaseSetup(value = "classpath:dao/MstAdminRepository/")
+    public void selectByIdAndPassCase2() throws WebUnexpectedException {
 
         // 期待値作成
         MstAdminEntity expected = new MstAdminEntity();
         expected.setAdminId("A001");
         expected.setAdminName("test");
-        expected.setPassword("d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1");
+        expected.setPassword("pass1");
         expected.setRoleCode("01");
         expected.setLogicDelFlg("0");
         expected.setCreateBy("admin1");
@@ -46,32 +67,75 @@ public class MstAdminRepositoryTest extends BaseTest {
 
         // テスト対象メソッド実行
         MstAdminEntity result = dao
-                .selectByIdAndPass("A001", "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1").get(0);
+                .selectByIdAndPass("A001", "pass1").get(0);
 
         // samePropertyValuesAsを使ってentityの他の項目も丸ごと比較が望ましい
         // 不要な項目が取得されていないか、確認ができる
         assertThat(result, is(samePropertyValuesAs(expected)));
     }
 
+    /**
+     * selectByIdAndPass:ケース3
+     * 
+     * @throws WebUnexpectedException
+     */
     @Test
     @DatabaseSetup(value = "classpath:dao/MstAdminRepository/")
-    public void selectByIdAndPassNullTest() throws WebUnexpectedException {
+    public void selectByIdAndPassCase3() throws WebUnexpectedException {
 
         // テスト対象メソッド実行
         List<MstAdminEntity> result = dao
-                .selectByIdAndPass(null, null);
+                .selectByIdAndPass("A001", "pass2");
 
         assertEquals(result.size(), 0);
     }
 
+    /**
+     * selectByIdAndPass:ケース4
+     * 
+     * @throws WebUnexpectedException
+     */
     @Test
     @DatabaseSetup(value = "classpath:dao/MstAdminRepository/")
-    public void selectByIdAndPassAdminIdNullTest() throws WebUnexpectedException {
+    public void selectByIdAndPassCase4() throws WebUnexpectedException {
 
         // テスト対象メソッド実行
         List<MstAdminEntity> result = dao
-                .selectByIdAndPass("A002", "pass");
+                .selectByIdAndPass("A002", "pass1");
 
         assertEquals(result.size(), 0);
+    }
+
+    /**
+     * selectByIdAndPass:ケース5
+     * 
+     * @throws WebUnexpectedException
+     */
+    @Test
+    @DatabaseSetup(value = "classpath:dao/MstAdminRepository/")
+    public void selectByIdAndPassCase5() throws WebUnexpectedException {
+
+        // 期待値作成
+        MstAdminEntity expected = new MstAdminEntity();
+        expected.setAdminId("A002");
+        expected.setAdminName("test");
+        expected.setPassword("pass2");
+        expected.setRoleCode("01");
+        expected.setLogicDelFlg("0");
+        expected.setCreateBy("admin1");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        LocalDateTime createTime = LocalDateTime.parse("2024-11-21 04:44:58.240", formatter);
+        expected.setCreateTime(createTime);
+        expected.setUpdateBy("admin");
+        LocalDateTime upDateTime = LocalDateTime.parse("2024-11-21 04:44:58.240", formatter);
+        expected.setUpdateTime(upDateTime);
+
+        // テスト対象メソッド実行
+        MstAdminEntity result = dao
+                .selectByIdAndPass("A002", "pass2").get(0);
+
+        // samePropertyValuesAsを使ってentityの他の項目も丸ごと比較が望ましい
+        // 不要な項目が取得されていないか、確認ができる
+        assertThat(result, is(samePropertyValuesAs(expected)));
     }
 }

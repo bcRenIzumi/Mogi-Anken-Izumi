@@ -30,8 +30,13 @@ public class LogoutControllerTest extends BaseTest {
     @Mock
     private HttpSession session;
 
+    /**
+     * logout:ケース1
+     * 
+     * @throws Exception
+     */
     @Test
-    public void testLogout() throws Exception {
+    public void logoutCase1() throws Exception {
         String result = logoutController.logout();
         assertEquals(UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN, result);
     }

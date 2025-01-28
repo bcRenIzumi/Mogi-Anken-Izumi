@@ -18,15 +18,7 @@ public class MessageConstants {
     private MessageConstants() {
     }
 
-    /** 管理者ログイン画面：ID or パスワードの未入力 */
-    public static final String ADMIN_NOT_ENTERED = "入力必須項目です";
+    /** メッセージID:DBからレコードを取得できなかった場合 */
+    public static final String NO_RECORD = "db.select.error.message";
 
-    /** 管理者ログイン画面：ID or パスワードのどちらかが17文字以上の場合 */
-    public static final String ADMIN_LENGTH_OVER = "ID、パスワードは16文字以下です";
-
-    /** 管理者ログイン画面：ID or パスワードのどちらかに半角英数字以外が使われている場合 */
-    public static final String ADMIN_USE_ILLEGAL_CHAR = "IDとパスワードに用いられるのは半角英数字のみです";
-
-    /** 管理者ログイン画面：ID or パスワードのどちらかが間違っている場合 */
-    public static final String ADMIN_WRONG_ID_PASS = "管理者IDまたはパスワードが違います";
 }

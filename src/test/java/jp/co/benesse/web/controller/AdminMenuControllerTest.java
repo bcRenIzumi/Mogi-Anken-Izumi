@@ -34,10 +34,10 @@ public class AdminMenuControllerTest extends BaseTest {
     private Model model;
 
     /**
-     * ケース1
+     * showAdminMenu:ケース1
      */
     @Test
-    public void testShowAdminMenuNull() {
+    public void showAdminMenuCase1() {
 
         when(session.getAttribute(CommonConstants.USER_ID)).thenReturn("userId");
         when(session.getAttribute(CommonConstants.USER_NAME)).thenReturn("userName");
@@ -48,23 +48,23 @@ public class AdminMenuControllerTest extends BaseTest {
     }
 
     /**
-     * ケース2
+     * showAdminMenu:ケース2
      * 
      * @throws Exception
      */
     @Test
-    public void testShowAdminMenuUserNotLoggedIn() throws Exception {
+    public void showAdminMenuCase2() throws Exception {
         String result = adminMenuController.showAdminMenu(model);
         assertEquals(UrlConstants.REDIRECT + UrlConstants.ADMIN_LOGIN, result);
     }
 
     /**
-     * ケース3
+     * showAdminMenu:ケース3
      * 
      * @throws Exception
      */
     @Test
-    public void testShowAdminMenuUserNoUserName() throws Exception {
+    public void showAdminMenuCase3() throws Exception {
 
         when(session.getAttribute(CommonConstants.USER_ID)).thenReturn("userId");
         String result = adminMenuController.showAdminMenu(model);
@@ -72,10 +72,10 @@ public class AdminMenuControllerTest extends BaseTest {
     }
 
     /**
-     * ケース4
+     * showAdminMenu:ケース4
      */
     @Test
-    public void testShowAdminMenuUserLoggedIn() {
+    public void showAdminMenuUserCase4() {
 
         when(session.getAttribute(CommonConstants.USER_ID)).thenReturn("userId");
         when(session.getAttribute(CommonConstants.USER_NAME)).thenReturn("userName");
