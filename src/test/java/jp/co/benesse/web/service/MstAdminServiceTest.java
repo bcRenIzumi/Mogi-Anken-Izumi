@@ -3,6 +3,10 @@ package jp.co.benesse.web.service;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,11 +19,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import jakarta.servlet.http.HttpSession;
+import ch.qos.logback.core.util.StringUtil;
 import jp.co.benesse.web.BaseTest;
-import jp.co.benesse.web.constants.UrlConstants;
 import jp.co.benesse.web.entity.MstAdminEntity;
 import jp.co.benesse.web.exception.NoSuchRecordException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
@@ -51,6 +55,32 @@ public class MstAdminServiceTest extends BaseTest {
         when(mstAdminRepository.selectByIdAndPass(any(), any())).thenReturn(result);
         assertThrows(NoSuchRecordException.class, () -> {
             mstAdminService.getAdminList("test", "test");
+        });
+    }
+
+    @Test
+    public void getAdminListTestThrowWebUnexpectedException()
+            throws NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException {
+
+        doThrow(new WebUnexpectedException("error")).when(mstAdminRepository).selectByIdAndPass(any(), any());
+        assertThrows(WebUnexpectedException.class, () -> {
+            mstAdminService.getAdminList("test", "test");
+        });
+    }
+
+    @Test
+    public void getAdminListTestThrowNoSuchAlgorithmException()
+            throws NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException {
+
+        List<MstAdminEntity> result = new ArrayList<>();
+        MstAdminEntity entity = new MstAdminEntity();
+        result.add(entity);
+
+        MstAdminService mstAdminServiceSpy = spy(MstAdminService.class);
+        doThrow(new NoSuchAlgorithmException()).when(mstAdminServiceSpy).hashPassword(any());
+
+        assertThrows(NoSuchAlgorithmException.class, () -> {
+            mstAdminServiceSpy.getAdminList("test", "test");
         });
     }
 

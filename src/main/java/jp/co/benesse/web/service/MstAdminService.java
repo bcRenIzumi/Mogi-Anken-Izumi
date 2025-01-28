@@ -8,7 +8,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import jp.co.benesse.web.entity.MstAdminEntity;
 import jp.co.benesse.web.exception.NoSuchRecordException;
-import jp.co.benesse.web.exception.WebParamException;
 import jp.co.benesse.web.exception.WebUnexpectedException;
 import jp.co.benesse.web.repository.MstAdminRepository;
 import jp.co.benesse.web.util.MessageUtil;
@@ -59,7 +58,7 @@ public class MstAdminService {
      * @return ハッシュ化されたパスワード
      * @throws NoSuchAlgorithmException
      */
-    private static String hashPassword(String password) throws NoSuchAlgorithmException {
+    public String hashPassword(String password) throws NoSuchAlgorithmException {
 
         return StringUtil.hashString(password);
     }

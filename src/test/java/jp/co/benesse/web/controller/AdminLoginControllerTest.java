@@ -24,10 +24,8 @@ import org.springframework.validation.BindingResult;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.benesse.web.BaseTest;
-import jp.co.benesse.web.constants.CommonConstants;
 import jp.co.benesse.web.constants.ScreenConstants;
 import jp.co.benesse.web.constants.UrlConstants;
-import jp.co.benesse.web.dto.AdminMenuScreenDto;
 import jp.co.benesse.web.entity.MstAdminEntity;
 import jp.co.benesse.web.exception.NoSuchRecordException;
 import jp.co.benesse.web.form.AdminLoginForm;
