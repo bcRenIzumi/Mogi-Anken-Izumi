@@ -53,7 +53,7 @@ public class MstAdminRepositoryTest extends BaseTest {
         // 期待値作成
         MstAdminEntity expected = new MstAdminEntity();
         expected.setAdminId("A001");
-        expected.setAdminName("test");
+        expected.setAdminName("test1");
         expected.setPassword("pass1");
         expected.setRoleCode("01");
         expected.setLogicDelFlg("0");
@@ -61,7 +61,7 @@ public class MstAdminRepositoryTest extends BaseTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         LocalDateTime createTime = LocalDateTime.parse("2024-11-21 04:44:58.240", formatter);
         expected.setCreateTime(createTime);
-        expected.setUpdateBy("admin");
+        expected.setUpdateBy("admin1");
         LocalDateTime upDateTime = LocalDateTime.parse("2024-11-21 04:44:58.240", formatter);
         expected.setUpdateTime(upDateTime);
 
@@ -118,16 +118,16 @@ public class MstAdminRepositoryTest extends BaseTest {
         // 期待値作成
         MstAdminEntity expected = new MstAdminEntity();
         expected.setAdminId("A002");
-        expected.setAdminName("test");
+        expected.setAdminName("test2");
         expected.setPassword("pass2");
-        expected.setRoleCode("01");
+        expected.setRoleCode("02");
         expected.setLogicDelFlg("0");
-        expected.setCreateBy("admin1");
+        expected.setCreateBy("admin2");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        LocalDateTime createTime = LocalDateTime.parse("2024-11-21 04:44:58.240", formatter);
+        LocalDateTime createTime = LocalDateTime.parse("2025-12-22 05:55:59.350", formatter);
         expected.setCreateTime(createTime);
-        expected.setUpdateBy("admin");
-        LocalDateTime upDateTime = LocalDateTime.parse("2024-11-21 04:44:58.240", formatter);
+        expected.setUpdateBy("admin2");
+        LocalDateTime upDateTime = LocalDateTime.parse("2028-11-21 04:44:58.240", formatter);
         expected.setUpdateTime(upDateTime);
 
         // テスト対象メソッド実行
@@ -137,5 +137,21 @@ public class MstAdminRepositoryTest extends BaseTest {
         // samePropertyValuesAsを使ってentityの他の項目も丸ごと比較が望ましい
         // 不要な項目が取得されていないか、確認ができる
         assertThat(result, is(samePropertyValuesAs(expected)));
+    }
+
+    /**
+     * selectByIdAndPass:ケース6
+     * 
+     * @throws WebUnexpectedException
+     */
+    @Test
+    @DatabaseSetup(value = "classpath:dao/MstAdminRepository/")
+    public void selectByIdAndPassCase6() throws WebUnexpectedException {
+
+        // テスト対象メソッド実行
+        List<MstAdminEntity> result = dao
+                .selectByIdAndPass("A003", "pass3");
+
+        assertEquals(result.size(), 0);
     }
 }

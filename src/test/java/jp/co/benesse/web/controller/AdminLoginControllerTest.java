@@ -133,4 +133,17 @@ public class AdminLoginControllerTest extends BaseTest {
         // 遷移先が正しいか確認
         assertEquals(expected, result);
     }
+
+    /**
+     * executeAdminLogin:ケース4
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void executeAdminLoginCase4() throws Exception {
+        AdminLoginForm adminLoginForm = null;
+        assertThrows(NullPointerException.class, () -> {
+            adminLoginController.executeAdminLogin(adminLoginForm, null);
+        });
+    }
 }

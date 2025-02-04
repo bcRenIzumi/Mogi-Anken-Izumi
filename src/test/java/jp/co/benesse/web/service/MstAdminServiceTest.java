@@ -157,4 +157,27 @@ public class MstAdminServiceTest extends BaseTest {
         String result = (String) method.invoke(mstAdminService, (Object) null);
         assertEquals(result, null);
     }
+
+    /**
+     * hashPassword:ケース3
+     * 
+     * @throws NoSuchMethodException
+     * @throws NoSuchAlgorithmException
+     * @throws WebUnexpectedException
+     * @throws NoSuchRecordException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     */
+    @Test
+    public void hashPasswordCase3()
+            throws NoSuchMethodException, NoSuchAlgorithmException, WebUnexpectedException, NoSuchRecordException,
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+        Method method = MstAdminService.class.getDeclaredMethod("hashPassword", String.class);
+        method.setAccessible(true);
+
+        String result = (String) method.invoke(mstAdminService, "");
+        assertEquals(result, "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    }
 }
