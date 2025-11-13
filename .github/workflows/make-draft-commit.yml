@@ -116,9 +116,6 @@ jobs:
                     echo ''
                     echo 'このPRはAI（Cursor Agent）が自動的に生成した改善内容を含んでいます。'
                     echo ''
-                    echo '### 変更内容'
-                    cat ai_changes.txt
-                    echo ''
                     echo '### 詳細な説明'
                     cat pr_description.txt
                     echo ''
