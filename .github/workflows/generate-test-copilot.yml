@@ -86,21 +86,41 @@ jobs:
                    変更内容の詳細はPRの説明をご確認ください。"
                     echo "コミットが作成されました。"
 
-                    # コミットをプッシュ
-                    echo "コミットをプッシュします..."
-                    git push origin $HEAD_BRANCH
+                    # ブランチが存在するか確認し、なければ作成してからプッシュ
+                    echo "ブランチ $HEAD_BRANCH の存在を確認します..."
+                    if ! git ls-remote --heads origin $HEAD_BRANCH | grep -q $HEAD_BRANCH; then
+                      echo "ブランチ $HEAD_BRANCH が存在しないため、ローカルブランチを作成します。"
+                      git checkout -b $HEAD_BRANCH
+                      git push -u origin $HEAD_BRANCH
+                    else
+                      echo "ブランチ $HEAD_BRANCH が存在します。"
+                      git checkout $HEAD_BRANCH
+                      git push origin $HEAD_BRANCH
+                    fi
                     echo "プッシュが完了しました。"
                   else
                     echo "変更されたファイルがありません。コミットをスキップします。"
                   fi
 
             - name: Generate PR Description
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  # 変更されたファイルの内容を分析してPR説明を生成
-                  cursor-agent -p "変更されたファイルを分析して、技術者向けに詳しく説明してください。
-                  このプロジェクトはJava Spring Bootアプリケーションです。どのような改善が行われ、どのような影響があるかを記述してください。" > pr_description.txt
+              id: generate_pr_desc
+              uses: actions/ai-inference@v1
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  max-tokens: ${{ env.AI_MAX_TOKENS }}
+                  model: ${{ env.AI_MODEL }}
+                  system-prompt: |
+                      あなたは優秀な技術者で、コード変更を分析して技術的な説明を作成する専門家です。
+                      提供された変更内容を分析し、技術者向けにわかりやすく説明してください。
+                  prompt: |
+                      変更されたファイルを分析して、技術者向けに詳しく説明してください。
+                      このプロジェクトはJava Spring Bootアプリケーションです。どのような改善が行われ、どのような影響があるかを記述してください。
+
+                      変更内容:
+                      $(cat changed_files.txt)
+
+                      生成されたコード:
+                      $(cat src/test/java/jp/co/benesse/web/util/CheckUtilTest.java)
 
             - name: Create Draft Pull Request
               env:
@@ -138,7 +158,7 @@ jobs:
                     echo 'このPRはAI（Copilot）が自動的に生成した改善内容を含んでいます。'
                     echo ''
                     echo '### 詳細な説明'
-                    cat pr_description.txt
+                    echo "${{ steps.generate_pr_desc.outputs.response }}"
                     echo ''
                     echo '### 変更されたファイル'
                     echo '```'
