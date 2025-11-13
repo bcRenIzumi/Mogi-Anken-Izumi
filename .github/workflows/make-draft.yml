@@ -1,0 +1,21 @@
+name: ドラフト作成
+on:
+  push:
+    branches:
+      - main
+jobs:
+  make-draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Cursor CLI
+        run: |
+            curl https://cursor.com/install -fsS | bash
+            echo "$HOME/.cursor/bin" >> $GITHUB_PATH
+      - name: AI Draft generation with Cursor Agent
+        env:
+          CURSOR_API_KEY: ${{secrets.CURSOR_API_KEY || 'key_86b7926da5f5334585fd9853ebf3154e6d59dbed187de0b5208cd40152929c88'}}
+          MODEL: ${{ vars.CURSOR_MODEL || 'gpt-5' }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:
+          cursor-agent --force --api-key "$CURSOR_API_KEY" --output-format=text --print "なんでもいいのでドラフトを作成してください"
