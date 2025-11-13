@@ -1,4 +1,4 @@
-name: ドラフト作成
+name: ドラフト作成（コミットあり）
 on:
     workflow_dispatch:
         inputs:
@@ -37,8 +37,12 @@ jobs:
                   MODEL: ${{ vars.CURSOR_MODEL || 'gpt-5' }}
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  # AIにコード変更を指示
-                  cursor-agent --force --api-key "$CURSOR_API_KEY" --output-format=text --print "プロジェクトの改善のために、README.mdファイルを作成または更新し、プロジェクトの概要を日本語で記述してください。また、必要に応じて他のファイルも改善してください。" > ai_changes.txt
+                  # AIにファイル変更のみを指示（制限付きアプローチ）
+                  cursor-agent -p "重要: ブランチの作成、コミット、プッシュ、またはPRへのコメント投稿はしないでください。
+                  作業ディレクトリ内のファイルのみを変更してください。公開は後続のワークフローステップが実行します。
+
+                  プロジェクトの改善のために、README.mdファイルを作成または更新し、プロジェクトの概要を日本語で記述してください。
+                  このプロジェクトはJava Spring Bootアプリケーションです。"
 
                   # 変更されたファイルを特定
                   echo "変更されたファイルを確認中..."
@@ -73,8 +77,9 @@ jobs:
                   MODEL: ${{ vars.CURSOR_MODEL || 'gpt-5' }}
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  # PRの説明を生成
-                  cursor-agent --force --api-key "$CURSOR_API_KEY" --output-format=text --print "このコミットで行った変更について、技術者向けに詳しく説明してください。どのような改善が行われ、どのような影響があるかを記述してください。" > pr_description.txt
+                  # 変更されたファイルの内容を分析してPR説明を生成
+                  cursor-agent -p "変更されたファイルを分析して、技術者向けに詳しく説明してください。
+                  このプロジェクトはJava Spring Bootアプリケーションです。どのような改善が行われ、どのような影響があるかを記述してください。" > pr_description.txt
 
             - name: Create Draft Pull Request
               env:
