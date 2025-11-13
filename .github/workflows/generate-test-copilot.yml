@@ -1,0 +1,164 @@
+name: テスト生成(Copilot)
+
+permissions:
+    contents: read
+    pull-requests: write
+    models: read
+
+on:
+    workflow_dispatch:
+        inputs:
+            head_branch:
+                description: "作成するPRのソースブランチ"
+                required: true
+                default: "feature/draft"
+            base_branch:
+                description: "PRのターゲットブランチ"
+                required: true
+                default: "main"
+            draft_title:
+                description: "PRのタイトル（空の場合はAI生成）"
+                required: false
+
+env:
+    AI_MODEL: ${{ vars.AI_MODEL || 'gpt-4o' }}
+    AI_MAX_TOKENS: ${{ vars.AI_MAX_TOKENS || '2000' }}
+jobs:
+    make-draft:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: AI Code Changes with Copilot
+              id: ai_generate_test
+              uses: actions/ai-inference@v1
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  max-tokens: ${{ env.AI_MAX_TOKENS }}
+                  model: ${{ env.AI_MODEL }}
+                  system-prompt: |
+                      あなたは優秀なJava開発者で、Spring Bootアプリケーションのテストコードを生成する専門家です。
+                      提供されたコードに対して、適切なユニットテストを作成してください。
+
+                      テスト作成のガイドライン:
+                      - JUnit 5を使用
+                      - Mockitoを使用（必要に応じて）
+                      - テストメソッド名は日本語で記述
+                      - テストケースは境界値、正常系、異常系をカバー
+                      - アサーションは適切に記述
+                      - テスト対象のクラスはCheckUtil.javaです
+                  prompt: |
+                      CheckUtilのテストを作成してください。
+
+            - name: Apply AI Changes
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  # AIの生成したテストコードをCheckUtilTest.javaに書き込む
+                  mkdir -p src/test/java/jp/co/benesse/web/util
+                  echo "${{ steps.ai_generate_test.outputs.response }}" > src/test/java/jp/co/benesse/web/util/CheckUtilTest.java
+
+                  # 変更されたファイルを特定
+                  echo "変更されたファイルを確認中..."
+                  git status --porcelain > changed_files.txt
+
+            - name: Commit AI Changes
+              env:
+                  HEAD_BRANCH: ${{ inputs.head_branch }}
+              run: |
+                  # Git設定
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+                  # 変更がある場合のみコミット
+                  if [ -s changed_files.txt ]; then
+                    echo "変更されたファイルがあります。コミットを作成します。"
+                    git add .
+                    git commit -m "feat: AIによる自動改善
+
+                    AIが以下の改善を行いました：
+                    - README.mdの作成/更新
+                    - プロジェクト構造の改善
+                    - その他の必要な変更
+
+                   変更内容の詳細はPRの説明をご確認ください。"
+                    echo "コミットが作成されました。"
+
+                    # コミットをプッシュ
+                    echo "コミットをプッシュします..."
+                    git push origin $HEAD_BRANCH
+                    echo "プッシュが完了しました。"
+                  else
+                    echo "変更されたファイルがありません。コミットをスキップします。"
+                  fi
+
+            - name: Generate PR Description
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  # 変更されたファイルの内容を分析してPR説明を生成
+                  cursor-agent -p "変更されたファイルを分析して、技術者向けに詳しく説明してください。
+                  このプロジェクトはJava Spring Bootアプリケーションです。どのような改善が行われ、どのような影響があるかを記述してください。" > pr_description.txt
+
+            - name: Create Draft Pull Request
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  HEAD_BRANCH: ${{ inputs.head_branch }}
+                  BASE_BRANCH: ${{ inputs.base_branch }}
+                  DRAFT_TITLE: ${{ inputs.draft_title }}
+              run: |
+                  # 変更がない場合はPRを作成しない
+                  if [ ! -s changed_files.txt ]; then
+                    echo "変更されたファイルがないため、PRの作成をスキップします。"
+                    exit 0
+                  fi
+
+                  # 現在のブランチがHEAD_BRANCHと一致するか確認
+                  CURRENT_BRANCH=$(git branch --show-current)
+                  if [ "$CURRENT_BRANCH" != "$HEAD_BRANCH" ]; then
+                    echo "Error: Current branch ($CURRENT_BRANCH) does not match specified head branch ($HEAD_BRANCH)"
+                    echo "Please run this workflow from the correct branch or specify the correct head_branch parameter."
+                    exit 1
+                  fi
+
+                  # タイトルが指定されている場合はそれを使用、なければデフォルトを使用
+                  if [ -n "$DRAFT_TITLE" ]; then
+                    TITLE="$DRAFT_TITLE"
+                  else
+                    TITLE="AIによる自動改善 - $(date +%Y%m%d_%H%M%S)"
+                  fi
+
+                  # PR本文を作成
+                  # PR本文を安全に作成
+                  {
+                    echo '## 🤖 AIによる自動改善'
+                    echo ''
+                    echo 'このPRはAI（Copilot）が自動的に生成した改善内容を含んでいます。'
+                    echo ''
+                    echo '### 詳細な説明'
+                    cat pr_description.txt
+                    echo ''
+                    echo '### 変更されたファイル'
+                    echo '```'
+                    cat changed_files.txt
+                    echo '```'
+                    echo ''
+                    echo '### 注意事項'
+                    echo '- このPRはドラフト状態です。内容を確認してからマージしてください。'
+                    echo '- AIの改善提案をレビューし、必要に応じて修正してください。'
+                  } > pr_body.txt
+
+                  BODY=$(cat pr_body.txt)
+
+                  # ドラフトPRを作成
+                  echo "ドラフトPRを作成します..."
+                  gh pr create \
+                    --title "$TITLE" \
+                    --body "$BODY" \
+                    --draft \
+                    --base $BASE_BRANCH \
+                    --head $HEAD_BRANCH
+
+                  echo "ドラフトPRが作成されました！"
