@@ -1,0 +1,149 @@
+name: 説明書の清書
+on:
+    workflow_dispatch:
+        inputs:
+            head_branch:
+                description: "作成するPRのソースブランチ"
+                required: true
+                default: "feature/draft"
+            base_branch:
+                description: "PRのターゲットブランチ"
+                required: true
+                default: "main"
+            draft_title:
+                description: "PRのタイトル（空の場合はAI生成）"
+                required: false
+jobs:
+    make-draft:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+            - name: Install Cursor CLI
+              run: |
+                  curl https://cursor.com/install -fsS | bash
+                  echo "$HOME/.cursor/bin" >> $GITHUB_PATH
+            - name: Install GitHub CLI
+              run: |
+                  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+                  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+                  sudo apt update
+                  sudo apt install gh
+
+            - name: AI Code Changes with Cursor Agent
+              env:
+                  CURSOR_API_KEY: ${{secrets.CURSOR_API_KEY || 'key_86b7926da5f5334585fd9853ebf3154e6d59dbed187de0b5208cd40152929c88'}}
+                  MODEL: ${{ vars.CURSOR_MODEL || 'gpt-5' }}
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  # AIにファイル変更を指示
+                  cursor-agent -p "GitHub Actions のランナー上で動作している。
+
+                   GitHub CLI は `gh` として利用可能で、`GH_TOKEN` で認証済み。Git も利用可能。リポジトリ内容への書き込み権限があり、プルリクエストにコメントできる。
+                   ラフ説明書の内容を清書した、清書済み説明書.mdを作ってください。"
+
+                  # 変更されたファイルを特定
+                  echo "変更されたファイルを確認中..."
+                  git status --porcelain > changed_files.txt
+
+            - name: Commit AI Changes
+              env:
+                  HEAD_BRANCH: ${{ inputs.head_branch }}
+              run: |
+                  # Git設定
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+                  # 変更がある場合のみコミット
+                  if [ -s changed_files.txt ]; then
+                    echo "変更されたファイルがあります。コミットを作成します。"
+                    git add .
+                    git commit -m "feat: AIによる自動改善
+
+                    AIが以下の改善を行いました：
+                    - README.mdの作成/更新
+                    - プロジェクト構造の改善
+                    - その他の必要な変更
+
+                   変更内容の詳細はPRの説明をご確認ください。"
+                    echo "コミットが作成されました。"
+
+                    # コミットをプッシュ
+                    echo "コミットをプッシュします..."
+                    git push origin $HEAD_BRANCH
+                    echo "プッシュが完了しました。"
+                  else
+                    echo "変更されたファイルがありません。コミットをスキップします。"
+                  fi
+
+            - name: Generate PR Description
+              env:
+                  CURSOR_API_KEY: ${{secrets.CURSOR_API_KEY || 'key_86b7926da5f5334585fd9853ebf3154e6d59dbed187de0b5208cd40152929c88'}}
+                  MODEL: ${{ vars.CURSOR_MODEL || 'gpt-5' }}
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  # 変更されたファイルの内容を分析してPR説明を生成
+                  cursor-agent -p "変更されたファイルを分析して、技術者向けに詳しく説明してください。
+                  このプロジェクトはJava Spring Bootアプリケーションです。どのような改善が行われ、どのような影響があるかを記述してください。" > pr_description.txt
+
+            - name: Create Draft Pull Request
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  HEAD_BRANCH: ${{ inputs.head_branch }}
+                  BASE_BRANCH: ${{ inputs.base_branch }}
+                  DRAFT_TITLE: ${{ inputs.draft_title }}
+              run: |
+                  # 変更がない場合はPRを作成しない
+                  if [ ! -s changed_files.txt ]; then
+                    echo "変更されたファイルがないため、PRの作成をスキップします。"
+                    exit 0
+                  fi
+
+                  # 現在のブランチがHEAD_BRANCHと一致するか確認
+                  CURRENT_BRANCH=$(git branch --show-current)
+                  if [ "$CURRENT_BRANCH" != "$HEAD_BRANCH" ]; then
+                    echo "Error: Current branch ($CURRENT_BRANCH) does not match specified head branch ($HEAD_BRANCH)"
+                    echo "Please run this workflow from the correct branch or specify the correct head_branch parameter."
+                    exit 1
+                  fi
+
+                  # タイトルが指定されている場合はそれを使用、なければデフォルトを使用
+                  if [ -n "$DRAFT_TITLE" ]; then
+                    TITLE="$DRAFT_TITLE"
+                  else
+                    TITLE="AIによる自動改善 - $(date +%Y%m%d_%H%M%S)"
+                  fi
+
+                  # PR本文を作成
+                  # PR本文を安全に作成
+                  {
+                    echo '## 🤖 AIによる自動改善'
+                    echo ''
+                    echo 'このPRはAI（Cursor Agent）が自動的に生成した改善内容を含んでいます。'
+                    echo ''
+                    echo '### 詳細な説明'
+                    cat pr_description.txt
+                    echo ''
+                    echo '### 変更されたファイル'
+                    echo '```'
+                    cat changed_files.txt
+                    echo '```'
+                    echo ''
+                    echo '### 注意事項'
+                    echo '- このPRはドラフト状態です。内容を確認してからマージしてください。'
+                    echo '- AIの改善提案をレビューし、必要に応じて修正してください。'
+                  } > pr_body.txt
+
+                  BODY=$(cat pr_body.txt)
+
+                  # ドラフトPRを作成
+                  echo "ドラフトPRを作成します..."
+                  gh pr create \
+                    --title "$TITLE" \
+                    --body "$BODY" \
+                    --draft \
+                    --base $BASE_BRANCH \
+                    --head $HEAD_BRANCH
+
+                  echo "ドラフトPRが作成されました！"
