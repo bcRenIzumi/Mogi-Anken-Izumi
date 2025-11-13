@@ -1,0 +1,169 @@
+Date : 2025-03-06 19:00:51
+Directory : c:\Users\bc0109695\projects\mogi-anken
+Total : 81 files,  3067 codes, 1808 comments, 803 blanks, all 5678 lines
+
+Languages
++-----------------+------------+------------+------------+------------+------------+
+| language        | files      | code       | comment    | blank      | total      |
++-----------------+------------+------------+------------+------------+------------+
+| Java            |         56 |      2,066 |      1,624 |        626 |      4,316 |
+| JavaScript      |          7 |        479 |        121 |        110 |        710 |
+| XML             |          2 |        159 |          8 |         11 |        178 |
+| CSS             |          2 |        135 |          7 |         17 |        159 |
+| HTML            |          5 |        123 |          0 |         14 |        137 |
+| Java Properties |          4 |         53 |         48 |         23 |        124 |
+| MS SQL          |          3 |         29 |          0 |          2 |         31 |
+| JSON            |          1 |         19 |          0 |          0 |         19 |
+| CSV             |          1 |          4 |          0 |          0 |          4 |
++-----------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                             | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                |         81 |      3,067 |      1,808 |        803 |      5,678 |
+| . (Files)                                                                                                                        |          1 |        129 |          0 |          5 |        134 |
+| .mvn                                                                                                                             |          1 |          3 |         16 |          1 |         20 |
+| .mvn\wrapper                                                                                                                     |          1 |          3 |         16 |          1 |         20 |
+| src                                                                                                                              |         79 |      2,935 |      1,792 |        797 |      5,524 |
+| src\main                                                                                                                         |         67 |      2,412 |      1,560 |        636 |      4,608 |
+| src\main\java                                                                                                                    |         46 |      1,564 |      1,401 |        472 |      3,437 |
+| src\main\java\jp                                                                                                                 |         46 |      1,564 |      1,401 |        472 |      3,437 |
+| src\main\java\jp\co                                                                                                              |         46 |      1,564 |      1,401 |        472 |      3,437 |
+| src\main\java\jp\co\benesse                                                                                                      |         46 |      1,564 |      1,401 |        472 |      3,437 |
+| src\main\java\jp\co\benesse\web                                                                                                  |         46 |      1,564 |      1,401 |        472 |      3,437 |
+| src\main\java\jp\co\benesse\web (Files)                                                                                          |          2 |         47 |         37 |         15 |         99 |
+| src\main\java\jp\co\benesse\web\annotation                                                                                       |          3 |         46 |         49 |         23 |        118 |
+| src\main\java\jp\co\benesse\web\common                                                                                           |          2 |         95 |         74 |         29 |        198 |
+| src\main\java\jp\co\benesse\web\constants                                                                                        |          4 |         40 |         74 |         33 |        147 |
+| src\main\java\jp\co\benesse\web\controller                                                                                       |          5 |        192 |        141 |         63 |        396 |
+| src\main\java\jp\co\benesse\web\dto                                                                                              |          2 |         17 |         23 |          9 |         49 |
+| src\main\java\jp\co\benesse\web\entity                                                                                           |          2 |         32 |         37 |         24 |         93 |
+| src\main\java\jp\co\benesse\web\enums                                                                                            |          1 |         30 |         32 |         13 |         75 |
+| src\main\java\jp\co\benesse\web\exception                                                                                        |          5 |         61 |         97 |         26 |        184 |
+| src\main\java\jp\co\benesse\web\form                                                                                             |          2 |         27 |         25 |         10 |         62 |
+| src\main\java\jp\co\benesse\web\interceptor                                                                                      |          2 |        104 |         50 |         29 |        183 |
+| src\main\java\jp\co\benesse\web\log                                                                                              |          2 |         57 |         50 |         17 |        124 |
+| src\main\java\jp\co\benesse\web\repository                                                                                       |          4 |        514 |        371 |         85 |        970 |
+| src\main\java\jp\co\benesse\web\service                                                                                          |          2 |         60 |         55 |         21 |        136 |
+| src\main\java\jp\co\benesse\web\util                                                                                             |          6 |        189 |        245 |         63 |        497 |
+| src\main\java\jp\co\benesse\web\validation                                                                                       |          2 |         53 |         41 |         12 |        106 |
+| src\main\resources                                                                                                               |         21 |        848 |        159 |        164 |      1,171 |
+| src\main\resources (Files)                                                                                                       |          3 |         63 |         31 |         21 |        115 |
+| src\main\resources\META-INF                                                                                                      |          1 |         19 |          0 |          0 |         19 |
+| src\main\resources\sql                                                                                                           |          3 |         29 |          0 |          2 |         31 |
+| src\main\resources\sql\MstAdminRepository                                                                                        |          1 |         16 |          0 |          0 |         16 |
+| src\main\resources\sql\SampleRepository                                                                                          |          2 |         13 |          0 |          2 |         15 |
+| src\main\resources\static                                                                                                        |          9 |        614 |        128 |        127 |        869 |
+| src\main\resources\static\css                                                                                                    |          2 |        135 |          7 |         17 |        159 |
+| src\main\resources\static\js                                                                                                     |          4 |         43 |         16 |         12 |         71 |
+| src\main\resources\static\js (Files)                                                                                             |          2 |         31 |          7 |          6 |         44 |
+| src\main\resources\static\js\common                                                                                              |          2 |         12 |          9 |          6 |         27 |
+| src\main\resources\static\lib                                                                                                    |          3 |        436 |        105 |         98 |        639 |
+| src\main\resources\templates                                                                                                     |          5 |        123 |          0 |         14 |        137 |
+| src\main\resources\templates (Files)                                                                                             |          4 |        108 |          0 |         12 |        120 |
+| src\main\resources\templates\error                                                                                               |          1 |         15 |          0 |          2 |         17 |
+| src\test                                                                                                                         |         12 |        523 |        232 |        161 |        916 |
+| src\test\java                                                                                                                    |         10 |        502 |        223 |        154 |        879 |
+| src\test\java\jp                                                                                                                 |         10 |        502 |        223 |        154 |        879 |
+| src\test\java\jp\co                                                                                                              |         10 |        502 |        223 |        154 |        879 |
+| src\test\java\jp\co\benesse                                                                                                      |         10 |        502 |        223 |        154 |        879 |
+| src\test\java\jp\co\benesse\web                                                                                                  |         10 |        502 |        223 |        154 |        879 |
+| src\test\java\jp\co\benesse\web (Files)                                                                                          |          4 |        107 |         29 |         35 |        171 |
+| src\test\java\jp\co\benesse\web\controller                                                                                       |          3 |        172 |         62 |         57 |        291 |
+| src\test\java\jp\co\benesse\web\repository                                                                                       |          1 |         91 |         43 |         24 |        158 |
+| src\test\java\jp\co\benesse\web\service                                                                                          |          1 |         96 |         61 |         27 |        184 |
+| src\test\java\jp\co\benesse\web\util                                                                                             |          1 |         36 |         28 |         11 |         75 |
+| src\test\resources                                                                                                               |          2 |         21 |          9 |          7 |         37 |
+| src\test\resources (Files)                                                                                                       |          1 |         17 |          9 |          7 |         33 |
+| src\test\resources\dao                                                                                                           |          1 |          4 |          0 |          0 |          4 |
+| src\test\resources\dao\MstAdminRepository                                                                                        |          1 |          4 |          0 |          0 |          4 |
++----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| filename                                                                                                                         | language        | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| c:\Users\bc0109695\projects\mogi-anken\.mvn\wrapper\maven-wrapper.properties                                                     | Java Properties |          3 |         16 |          1 |         20 |
+| c:\Users\bc0109695\projects\mogi-anken\pom.xml                                                                                   | XML             |        129 |          0 |          5 |        134 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\ServletInitializer.java                                   | Java            |          9 |         11 |          5 |         25 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\WebTemplateApplication.java                               | Java            |         38 |         26 |         10 |         74 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\annotation\AppDescription.java                            | Java            |         11 |         17 |          4 |         32 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\annotation\DatePattern.java                               | Java            |         17 |         16 |          9 |         42 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\annotation\EnumPattern.java                               | Java            |         18 |         16 |         10 |         44 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\common\TokenProcessor.java                                | Java            |         58 |         57 |         17 |        132 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\common\WebRequestDataValueProcessorAutoConfiguration.java | Java            |         37 |         17 |         12 |         66 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\constants\CommonConstants.java                            | Java            |         15 |         24 |         13 |         52 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\constants\MessageConstants.java                           | Java            |          6 |         14 |          5 |         25 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\constants\ScreenConstants.java                            | Java            |          7 |         15 |          5 |         27 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\constants\UrlConstants.java                               | Java            |         12 |         21 |         10 |         43 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\controller\AdminLoginController.java                      | Java            |         62 |         39 |         16 |        117 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\controller\AdminMenuController.java                       | Java            |         30 |         17 |         12 |         59 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\controller\ErrorController.java                           | Java            |         26 |         22 |         11 |         59 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\controller\LogoutController.java                          | Java            |         19 |         15 |          7 |         41 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\controller\SampleController.java                          | Java            |         55 |         48 |         17 |        120 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\dto\AdminLoginScreenDto.java                              | Java            |          8 |         11 |          4 |         23 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\dto\AdminMenuScreenDto.java                               | Java            |          9 |         12 |          5 |         26 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\entity\MstAdminEntity.java                                | Java            |         17 |         19 |         13 |         49 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\entity\SampleEntity.java                                  | Java            |         15 |         18 |         11 |         44 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\enums\SampleKbn.java                                      | Java            |         30 |         32 |         13 |         75 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\exception\NoSuchRecordException.java                      | Java            |          9 |         18 |          5 |         32 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\exception\WebBaseException.java                           | Java            |         31 |         25 |         10 |         66 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\exception\WebParamException.java                          | Java            |          6 |         16 |          4 |         26 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\exception\WebUnexpectedException.java                     | Java            |          9 |         22 |          4 |         35 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\exception\WebViewHandlingException.java                   | Java            |          6 |         16 |          3 |         25 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\form\AdminLoginForm.java                                  | Java            |         18 |         12 |          5 |         35 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\form\SampleForm.java                                      | Java            |          9 |         13 |          5 |         27 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\interceptor\LoggingInterceptor.java                       | Java            |         42 |         25 |         12 |         79 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\interceptor\WebInterceptor.java                           | Java            |         62 |         25 |         17 |        104 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\log\MdcFilter.java                                        | Java            |         38 |         29 |         13 |         80 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\log\MdcFilterConfigurer.java                              | Java            |         19 |         21 |          4 |         44 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\repository\MstAdminRepository.java                        | Java            |         21 |         20 |          7 |         48 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\repository\SampleRepository.java                          | Java            |         22 |         29 |          9 |         60 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\repository\SqlGeneratorBaseRepository.java                | Java            |         66 |         72 |         27 |        165 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\repository\WebNamedParameterJdbcTemplate.java             | Java            |        405 |        250 |         42 |        697 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\service\MstAdminService.java                              | Java            |         30 |         28 |         10 |         68 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\service\SampleService.java                                | Java            |         30 |         27 |         11 |         68 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\util\CheckUtil.java                                       | Java            |         29 |         31 |          6 |         66 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\util\DateUtil.java                                        | Java            |         56 |         96 |         16 |        168 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\util\FileAccessUtil.java                                  | Java            |         23 |         20 |          8 |         51 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\util\LogUtil.java                                         | Java            |         27 |         43 |         11 |         81 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\util\MessageUtil.java                                     | Java            |         31 |         29 |         10 |         70 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\util\StringUtil.java                                      | Java            |         23 |         26 |         12 |         61 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\validation\DateValidator.java                             | Java            |         20 |         18 |          6 |         44 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\java\jp\co\benesse\web\validation\EnumValidator.java                             | Java            |         33 |         23 |          6 |         62 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\META-INF\additional-spring-configuration-metadata.json                 | JSON            |         19 |          0 |          0 |         19 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\application.properties                                                 | Java Properties |         16 |          9 |          7 |         32 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\logback-spring.xml                                                     | XML             |         30 |          8 |          6 |         44 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\messages.properties                                                    | Java Properties |         17 |         14 |          8 |         39 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\sql\MstAdminRepository\selectByIdAndPass.sql                           | MS SQL          |         16 |          0 |          0 |         16 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\sql\SampleRepository\selectSampleOpt.sql                               | MS SQL          |          7 |          0 |          1 |          8 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\sql\SampleRepository\updateSampleOpt.sql                               | MS SQL          |          6 |          0 |          1 |          7 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\css\admin-login.css                                             | CSS             |         66 |          7 |          8 |         81 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\css\admin-menu.css                                              | CSS             |         69 |          0 |          9 |         78 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\js\admin-login.js                                               | JavaScript      |         23 |          7 |          6 |         36 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\js\admin-menu.js                                                | JavaScript      |          8 |          0 |          0 |          8 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\js\common\constants.js                                          | JavaScript      |          6 |          7 |          5 |         18 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\js\common\functions.js                                          | JavaScript      |          6 |          2 |          1 |          9 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\lib\jquery-3.2.1.min.js                                         | JavaScript      |          3 |          1 |          1 |          5 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\lib\jquery-ui.min.js                                            | JavaScript      |          8 |          4 |          1 |         13 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\static\lib\jquery.blockUI.js                                           | JavaScript      |        425 |        100 |         96 |        621 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\templates\admin-login.html                                             | HTML            |         36 |          0 |          4 |         40 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\templates\admin-menu.html                                              | HTML            |         28 |          0 |          3 |         31 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\templates\error.html                                                   | HTML            |         20 |          0 |          2 |         22 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\templates\error\404.html                                               | HTML            |         15 |          0 |          2 |         17 |
+| c:\Users\bc0109695\projects\mogi-anken\src\main\resources\templates\sample.html                                                  | HTML            |         24 |          0 |          3 |         27 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\BaseTest.java                                             | Java            |         60 |         29 |         16 |        105 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\CsvDataSetLoader.java                                     | Java            |         11 |          0 |          6 |         17 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\DbUnitConfig.java                                         | Java            |         27 |          0 |          8 |         35 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\WebTemplateApplicationTests.java                          | Java            |          9 |          0 |          5 |         14 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\controller\AdminLoginControllerTest.java                  | Java            |         89 |         34 |         27 |        150 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\controller\AdminMenuControllerTest.java                   | Java            |         55 |         18 |         19 |         92 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\controller\LogoutControllerTest.java                      | Java            |         28 |         10 |         11 |         49 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\repository\MstAdminRepositoryTest.java                    | Java            |         91 |         43 |         24 |        158 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\service\MstAdminServiceTest.java                          | Java            |         96 |         61 |         27 |        184 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\java\jp\co\benesse\web\util\StringUtilTest.java                                  | Java            |         36 |         28 |         11 |         75 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\resources\application-test.properties                                            | Java Properties |         17 |          9 |          7 |         33 |
+| c:\Users\bc0109695\projects\mogi-anken\src\test\resources\dao\MstAdminRepository\MstAdmin.csv                                    | CSV             |          4 |          0 |          0 |          4 |
+| Total                                                                                                                            |                 |      3,067 |      1,808 |        803 |      5,678 |
++----------------------------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
