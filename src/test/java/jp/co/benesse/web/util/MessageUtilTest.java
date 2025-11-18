@@ -1,6 +1,7 @@
 package jp.co.benesse.web.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.test.context.TestPropertySource;
 
 import jp.co.benesse.web.BaseTest;
@@ -183,6 +185,127 @@ public class MessageUtilTest extends BaseTest {
                 .thenReturn(messageWithReplacePart);
         
         String actualMessage = MessageUtil.getMessage(key);
+        
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * getMessage:ケース8 - 空文字列のキーでメッセージ取得
+     */
+    @Test
+    public void getMessageCase8() {
+        String key = "";
+        String expectedMessage = "空文字列メッセージ";
+        
+        when(messageSource.getMessage(eq(key), any(), eq(Locale.JAPAN)))
+                .thenReturn(expectedMessage);
+        
+        String actualMessage = MessageUtil.getMessage(key);
+        
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * getMessage:ケース9 - nullパラメータを含むメッセージ取得
+     */
+    @Test
+    public void getMessageCase9() {
+        String key = "test.message";
+        String expectedMessage = "テストメッセージ: null";
+        
+        when(messageSource.getMessage(eq(key), any(), eq(Locale.JAPAN)))
+                .thenReturn(expectedMessage);
+        
+        String actualMessage = MessageUtil.getMessage(key, (Object) null);
+        
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * getMessage:ケース10 - 空文字列パラメータを含むメッセージ取得
+     */
+    @Test
+    public void getMessageCase10() {
+        String key = "test.message";
+        String param = "";
+        String expectedMessage = "テストメッセージ: ";
+        
+        when(messageSource.getMessage(eq(key), any(), eq(Locale.JAPAN)))
+                .thenReturn(expectedMessage);
+        
+        String actualMessage = MessageUtil.getMessage(key, param);
+        
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * getMessage:ケース11 - MessageSourceがメッセージが見つからない例外をスローする場合
+     */
+    @Test
+    public void getMessageCase11() {
+        String key = "nonexistent.key";
+        
+        when(messageSource.getMessage(eq(key), any(), eq(Locale.JAPAN)))
+                .thenThrow(new NoSuchMessageException(key, Locale.JAPAN));
+        
+        assertThrows(NoSuchMessageException.class, () -> {
+            MessageUtil.getMessage(key);
+        });
+    }
+
+    /**
+     * getMessage:ケース12 - エラーコード置換パートが含まれるメッセージ（機能IDが空文字列の場合）
+     */
+    @Test
+    public void getMessageCase12() {
+        String key = "test.message";
+        String funcId = "";
+        String messageWithReplacePart = "WE03-XXXXX-001::エラーメッセージ";
+        String expectedMessage = "WE03--001::エラーメッセージ";
+        
+        // ThreadContextに機能IDを空文字列で設定
+        ThreadContext.put(CommonConstants.FUNC_ID, funcId);
+        
+        when(messageSource.getMessage(eq(key), any(), eq(Locale.JAPAN)))
+                .thenReturn(messageWithReplacePart);
+        
+        String actualMessage = MessageUtil.getMessage(key);
+        
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * getMessage:ケース13 - エラーコード置換パートが含まれない通常のメッセージ（機能IDが設定されている場合）
+     */
+    @Test
+    public void getMessageCase13() {
+        String key = "test.message";
+        String funcId = "SAMPLE";
+        String expectedMessage = "通常のメッセージ";
+        
+        // ThreadContextに機能IDを設定
+        ThreadContext.put(CommonConstants.FUNC_ID, funcId);
+        
+        when(messageSource.getMessage(eq(key), any(), eq(Locale.JAPAN)))
+                .thenReturn(expectedMessage);
+        
+        String actualMessage = MessageUtil.getMessage(key);
+        
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /**
+     * getMessage:ケース14 - パラメータがnullの配列の場合
+     */
+    @Test
+    public void getMessageCase14() {
+        String key = "test.message";
+        String expectedMessage = "テストメッセージ";
+        
+        when(messageSource.getMessage(eq(key), any(), eq(Locale.JAPAN)))
+                .thenReturn(expectedMessage);
+        
+        String actualMessage = MessageUtil.getMessage(key, (Object[]) null);
         
         assertEquals(expectedMessage, actualMessage);
     }
