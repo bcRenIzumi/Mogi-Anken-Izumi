@@ -1,2 +1,2 @@
  M changed_files.txt
- M src/test/java/jp/co/benesse/web/util/CheckUtilTest.java
+ M src/test/java/jp/co/benesse/web/util/MessageUtilTest.java
